@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="GLow_Screensaver.Controls.PreviewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GLow_Screensaver.Controls"
+             mc:Ignorable="d" d:DesignHeight="211" d:DesignWidth="232.5">
+
+    <UserControl.Resources>
+        <BitmapImage x:Key="monitor" UriSource="/GLow Screensaver;component/Assets/monitor-32743_1280.png" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3.5*"/>
+            <ColumnDefinition Width="93*"/>
+            <ColumnDefinition Width="3.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="71.5*"/>
+            <RowDefinition Height="24.5*"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="image" Grid.ColumnSpan="3" Grid.RowSpan="3" Source="../Images/monitor-32743_1280.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
+        <local:GLScreensaverControl x:Name="preview" IsPreview="True" Height="Auto" Width="Auto" Grid.Column="1" Grid.Row="1" />
+    </Grid>
+</UserControl>

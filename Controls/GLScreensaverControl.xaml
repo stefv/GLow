@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="GLow_Screensaver.Controls.GLScreensaverControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:GL="clr-namespace:OpenTK;assembly=OpenTK.GLControl" 
+             Height="313" Width="465" KeyDown="Window_KeyDown" Focusable="False">
+
+    <Grid x:Name="grid" Focusable="False">
+        <!--<Popup Focusable="false" IsOpen="False" x:Name="FPSPopup" HorizontalAlignment="Left" VerticalAlignment="Top" Placement="RelativePoint" AllowsTransparency="True">
+            <TextBlock x:Name="FPS" Text="FPS:0" FontSize="20" Foreground="#FF05FF00" Background="{x:Null}" Margin="10" FontFamily="Consolas" />
+        </Popup>-->
+        <WindowsFormsHost  x:Name="wfContainer" Focusable="False">
+            <GL:GLControl x:Name="glControl" VSync="False" Load="GlControl_Load" Resize="GlControl_Resize" Paint="GlControl_Paint" MouseMove="glControl_MouseMove" MouseDown="glControl_MouseDown" />
+        </WindowsFormsHost>
+    </Grid>
+</UserControl>
