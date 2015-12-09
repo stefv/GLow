@@ -50,18 +50,6 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>2BA82C77995AB7DF1171DA6139F7A78E178B96C7</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>GLow Screensaver_CléTemporaire.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
@@ -226,7 +214,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="GLow Screensaver_CléTemporaire.pfx" />
     <None Include="packages.config" />
     <Resource Include="Images\favorite.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
