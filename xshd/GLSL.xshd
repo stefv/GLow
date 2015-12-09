@@ -1,0 +1,337 @@
+﻿<!--
+//
+// GLow screensaver
+// Copyright(C) Stéphane VANPOPERYNGHE
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or(at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+//
+-->
+<!-- TODO Finish to create the syntax highlighting for GLSL -->
+<SyntaxDefinition name="GLSL" extensions=".frag" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<Color name="Comment" foreground="Green" exampleText="// comment" />
+	<Color name="Literal" foreground="#A31515" exampleText="string text = &quot;A text&quot;"/>
+	<Color name="Operator" foreground="#FF0000"/>
+	<Color name="Keyword" foreground="#0000FF"/>
+	<Color name="Type" foreground="#2B91AF"/>
+	<Color name="Function" foreground="#0000FF"/>
+
+	<RuleSet ignoreCase="false">
+
+		<!-- comment -->
+		<Span color="Comment" begin="//"></Span>
+		<Span color="Comment" multiline="true">
+			<Begin>/\*</Begin>
+			<End>\*/</End>
+		</Span>
+
+    <!-- Primitive datatypes -->
+		<Keywords color="Type">
+      <Word>void</Word>
+      <Word>bool</Word>
+      <Word>int</Word>
+      <Word>float</Word>
+      <Word>vec2</Word>
+      <Word>vec3</Word>
+      <Word>vec4</Word>
+      <Word>bvec2</Word>
+      <Word>bvec3</Word>
+      <Word>bvec4</Word>
+      <Word>ivec2</Word>
+      <Word>ivec3</Word>
+      <Word>ivec4</Word>
+      <Word>mat2</Word>
+      <Word>mat3</Word>
+      <Word>mat4</Word>
+      <Word>sampler2D</Word>
+      <Word>samplerCube</Word>
+    </Keywords>
+
+		<!-- Vector datatypes -->
+		<Rule color="Type">
+			\b(?:bool|u?int|half|float|double)[1-4]\b
+		</Rule>
+
+		<!-- Matrix datatypes -->
+		<Rule color="Type">
+			\b(?:bool|u?int|half|float|double)[1-4]x[1-4]\b
+		</Rule>
+		<Keywords>
+			<Word>matrix</Word>
+			<!-- for matrix<type, w, h> declaration-->
+		</Keywords>
+
+		<!-- Buffer -->
+		<Keywords color="Type">
+			<Word>buffer</Word>
+			<Word>cbuffer</Word>
+		</Keywords>
+
+		<!-- samplers -->
+		<Keywords color="Keyword">
+			<Word>sampler</Word>
+			<Word>sample1D</Word>
+			<Word>sampler2D</Word>
+			<Word>sampler3D</Word>
+			<Word>samplerCUBE</Word>
+			<Word>sampler_state</Word>
+			<Word>SamplerState</Word>
+			<Word>SamplerComparisonState</Word>
+		</Keywords>
+
+		<!-- textures -->
+		<Keywords color="Keyword">
+			<Word>texture</Word>
+			<Word>Texture1D</Word>
+			<Word>Texture1DArray</Word>
+			<Word>Texture2D</Word>
+			<Word>Texture2DArray</Word>
+			<Word>Texture3D</Word>
+			<Word>TextureCube</Word>
+			<Word>TextureCubeArray</Word>
+		</Keywords>
+
+		<!-- boolean literals -->
+		<Keywords color="Literal">
+			<Word>true</Word>
+			<Word>false</Word>
+		</Keywords>
+
+		<!-- numeric literals -->
+		<Rule color="Literal">
+			\b(?:[0-9]?\.[0-9]+[lLfFhH]?|(?:0x)?[0-9]+[uUlLfFhH]?)\b
+		</Rule>
+
+		<!-- string literals -->
+		<Span color="Literal">
+			<Begin>"</Begin>
+			<End>"</End>
+			<RuleSet>
+				<Span begin="\\" end="." />
+			</RuleSet>
+		</Span>
+
+		<!-- struct -->
+		<Keywords color="Keyword">
+			<Word>struct</Word>
+			<Word>linear</Word>
+			<Word>centroid</Word>
+			<Word>nointerpolation</Word>
+			<Word>noperspective</Word>
+			<Word>sample</Word>
+		</Keywords>
+
+		<!-- reserved words -->
+		<Keywords color="Keyword">
+			<Word>blendstate</Word>
+			<Word>break</Word>
+			<Word>class</Word>
+			<Word>compile</Word>
+			<Word>const</Word>
+			<Word>continue</Word>
+			<Word>pass</Word>
+			<Word>struct</Word>
+			<Word>SV_POSITION</Word>
+			<Word>SV_TARGET</Word>
+			<Word>technique</Word>
+			<Word>technique10</Word>
+			<Word>technique11</Word>
+			<Word>typedef</Word>
+			<Word>DepthStencilState</Word>
+			<Word>DepthStencilView</Word>
+			<Word>Discard</Word>
+			<Word>Do</Word>
+			<Word>Else</Word>
+			<Word>Extern</Word>
+			<Word>False</Word>
+			<Word>For</Word>
+			<Word>If</Word>
+			<Word>In</Word>
+			<Word>Inline</Word>
+			<Word>Inout</Word>
+			<Word>Int</Word>
+			<Word>Interface</Word>
+			<Word>Namespace</Word>
+			<Word>Out</Word>
+			<Word>Pass</Word>
+			<Word>Precise</Word>
+			<Word>RasterizerState</Word>
+			<Word>RenderTargetView</Word>
+			<Word>Return</Word>
+			<Word>Register</Word>
+			<Word>Shared</Word>
+			<Word>Stateblock</Word>
+			<Word>Stateblock_state</Word>
+			<Word>Static</Word>
+			<Word>Switch</Word>
+			<Word>TBuffer</Word>
+			<Word>Typedef</Word>
+			<Word>Uniform</Word>
+			<Word>Void</Word>
+			<Word>Volatile</Word>
+			<Word>While</Word>
+		</Keywords>
+
+		<!-- functions -->
+		<Keywords color="Function">
+			<Word>CompileShader</Word>
+			<Word>SetBlendState</Word>
+			<Word>SetDepthStencilState</Word>
+			<Word>SetGeometryShader</Word>
+			<Word>SetPixelShader</Word>
+			<Word>SetRasterizerState</Word>
+			<Word>SetVertexShader</Word>
+			<Word>abs</Word>
+			<Word>acos</Word>
+			<Word>all</Word>
+			<Word>AllMemoryBarrier</Word>
+			<Word>AllMemoryBarrierWithGroupSync</Word>
+			<Word>any</Word>
+			<Word>asdouble</Word>
+			<Word>asfloat</Word>
+			<Word>asin</Word>
+			<Word>asint</Word>
+			<Word>asuint</Word>
+			<Word>asuint</Word>
+			<Word>atan</Word>
+			<Word>atan2</Word>
+			<Word>ceil</Word>
+			<Word>clamp</Word>
+			<Word>clip</Word>
+			<Word>cos</Word>
+			<Word>cosh</Word>
+			<Word>countbits</Word>
+			<Word>cross</Word>
+			<Word>D3DCOLORtoUBYTE4</Word>
+			<Word>ddx</Word>
+			<Word>ddx_coarse</Word>
+			<Word>ddx_fine</Word>
+			<Word>ddy</Word>
+			<Word>ddy_coarse</Word>
+			<Word>ddy_fine</Word>
+			<Word>degrees</Word>
+			<Word>determinant</Word>
+			<Word>DeviceMemoryBarrier</Word>
+			<Word>DeviceMemoryBarrierWithGroupSync</Word>
+			<Word>distance</Word>
+			<Word>dot</Word>
+			<Word>dst</Word>
+			<Word>EvaluateAttributeAtCentroid</Word>
+			<Word>EvaluateAttributeAtSample</Word>
+			<Word>EvaluateAttributeSnapped</Word>
+			<Word>exp</Word>
+			<Word>exp2</Word>
+			<Word>f16tof32</Word>
+			<Word>f32tof16</Word>
+			<Word>faceforward</Word>
+			<Word>firstbithigh</Word>
+			<Word>firstbitlow</Word>
+			<Word>floor</Word>
+			<Word>fmod</Word>
+			<Word>frac</Word>
+			<Word>frexp</Word>
+			<Word>fwidth</Word>
+			<Word>GetRenderTargetSampleCount</Word>
+			<Word>GetRenderTargetSamplePosition</Word>
+			<Word>GroupMemoryBarrier</Word>
+			<Word>GroupMemoryBarrierWithGroupSync</Word>
+			<Word>InterlockedAdd</Word>
+			<Word>InterlockedAnd</Word>
+			<Word>InterlockedCompareExchange</Word>
+			<Word>InterlockedCompareStore</Word>
+			<Word>InterlockedExchange</Word>
+			<Word>InterlockedMax</Word>
+			<Word>InterlockedMin</Word>
+			<Word>InterlockedOr</Word>
+			<Word>InterlockedXor</Word>
+			<Word>isfinite</Word>
+			<Word>isinf</Word>
+			<Word>isnan</Word>
+			<Word>ldexp</Word>
+			<Word>length</Word>
+			<Word>lerp</Word>
+			<Word>lit</Word>
+			<Word>log</Word>
+			<Word>log10</Word>
+			<Word>log2</Word>
+			<Word>mad</Word>
+			<Word>max</Word>
+			<Word>min</Word>
+			<Word>modf</Word>
+			<Word>mul</Word>
+			<Word>noise</Word>
+			<Word>normalize</Word>
+			<Word>pow</Word>
+			<Word>Process2DQuadTessFactorsAvg</Word>
+			<Word>Process2DQuadTessFactorsMax</Word>
+			<Word>Process2DQuadTessFactorsMin</Word>
+			<Word>ProcessIsolineTessFactors</Word>
+			<Word>ProcessQuadTessFactorsAvg</Word>
+			<Word>ProcessQuadTessFactorsMax</Word>
+			<Word>ProcessQuadTessFactorsMin</Word>
+			<Word>ProcessTriTessFactorsAvg</Word>
+			<Word>ProcessTriTessFactorsMax</Word>
+			<Word>ProcessTriTessFactorsMin</Word>
+			<Word>radians</Word>
+			<Word>rcp</Word>
+			<Word>reflect</Word>
+			<Word>refract</Word>
+			<Word>reversebits</Word>
+			<Word>round</Word>
+			<Word>rsqrt</Word>
+			<Word>saturate</Word>
+			<Word>sign</Word>
+			<Word>sin</Word>
+			<Word>sincos</Word>
+			<Word>sinh</Word>
+			<Word>smoothstep</Word>
+			<Word>sqrt</Word>
+			<Word>step</Word>
+			<Word>tan</Word>
+			<Word>tanh</Word>
+			<Word>tex1D</Word>
+			<Word>tex1Dbias</Word>
+			<Word>tex1Dgrad</Word>
+			<Word>tex1Dlod</Word>
+			<Word>tex1Dproj</Word>
+			<Word>tex2D</Word>
+			<Word>tex2Dbias</Word>
+			<Word>tex2Dgrad</Word>
+			<Word>tex2Dlod</Word>
+			<Word>tex2Dproj</Word>
+			<Word>tex3D</Word>
+			<Word>tex3Dbias</Word>
+			<Word>tex3Dgrad</Word>
+			<Word>tex3Dlod</Word>
+			<Word>tex3Dproj</Word>
+			<Word>texCUBE</Word>
+			<Word>texCUBEbias</Word>
+			<Word>texCUBEgrad</Word>
+			<Word>texCUBElod</Word>
+			<Word>texCUBEproj</Word>
+			<Word>transpose</Word>
+			<Word>trunc</Word>
+			<Word>SetHullShader</Word>
+			<Word>SetDomainShader</Word>
+			<Word>SetComputeShader</Word>
+		</Keywords>
+
+		<!-- operators -->
+		<Rule color="Operator">
+			[+\-*/=%!&amp;|]
+		</Rule>
+
+	</RuleSet>
+</SyntaxDefinition>
