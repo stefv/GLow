@@ -32,12 +32,13 @@ using System.Windows.Media;
 namespace GLow_Screensaver.Controls
 {
     /// <summary>
-    /// Control displaying the OpenGL animation version.
+    /// Control displaying the OpenGL animation.
     /// </summary>
     public partial class GLScreensaverControl : UserControl
     {
+        #region Properties & attributes
         /// <summary>
-        /// Activate or deactivate the preview mode. With this mode, the CTRL key will not display the frame rate.
+        /// Activate or deactivate the preview mode. With this mode activated, the CTRL key will not display the frame rate.
         /// </summary>
         public bool IsPreview
         {
@@ -72,20 +73,44 @@ namespace GLow_Screensaver.Controls
         /// </summary>
         private int _glFramentShader = 0;
 
+        /// <summary>
+        /// true if the design mode is actually used.
+        /// </summary>
         private bool _isDesignMode = false;
 
+        /// <summary>
+        /// Start time used with the iGlobalTime variable used in the shaders.
+        /// </summary>
         private DateTime _startTime;
 
+        /// <summary>
+        /// true if the initialization of OpenGL is done.
+        /// </summary>
         private bool _glInitialized = false;
 
+        /// <summary>
+        /// Mouse position used in the shaders with the variable iMouse.
+        /// </summary>
         private Point _mousePosition = new Point(0, 0);
 
+        /// <summary>
+        /// Frame rate counter. This value is the number of frames during one second.
+        /// </summary>
         private uint _fps = 0;
 
+        /// <summary>
+        /// The time when the frame rate counter has been set to 0. 
+        /// </summary>
         private DateTime _timeFPS = DateTime.Now;
 
+        /// <summary>
+        /// The time when the mouse has been moved for the last time. This is
+        /// used to hide the cursor after a delay.
+        /// </summary>
         private DateTime _timeVisibleMouse = DateTime.Now;
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -96,78 +121,22 @@ namespace GLow_Screensaver.Controls
             InitializeComponent();
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
+        #endregion
 
-        private static void IsShowFPS_PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            GLScreensaverControl ctrl = (GLScreensaverControl)sender;
-            //Debug.WriteLine("ctrl.IsShowFPS:" + ctrl.IsShowFPS);
-            //ctrl.FPSPopup.IsOpen = ctrl.IsShowFPS; // FIXME Activate again this FPS counter
-        }
-
-        private void CompositionTarget_Rendering(object sender, EventArgs e)
-        {
-            if (_glInitialized) glControl.Invalidate();
-        }
-
-        /*private bool InitializeShader()
-        {
-            // Prépare le pixel shader			
-            string source = GetPixelShaderSource();
-            int pixelShader = GL.CreateShader(ShaderType.FragmentShader);
-
-            source = "uniform vec3  iResolution;\r\n" + source;
-            source = "uniform float iGlobalTime;" + source;
-            source = "uniform vec4 iMouse;" + source;
-            source = "out vec4 out_frag_color;" + source;
-            source = source + "\r\nvoid main(void) {vec4 fragColor;mainImage(fragColor,gl_FragCoord.xy);out_frag_color=fragColor;}";
-
-            GL.ShaderSource(pixelShader, source);
-            GL.CompileShader(pixelShader);
-            string result = GL.GetShaderInfoLog(pixelShader);
-            GL.DeleteShader(pixelShader);
-            if (result.Contains("error"))
-            {
-                Debug.WriteLine(result);
-                Debug.WriteLine("--------------------------------------------------------------------");
-                Debug.WriteLine(source);
-                //Application.Current.Dispatcher.Invoke(new Action(()=>{MessageBox.Show(result);}));
-                return false;
-            }
-
-            return true;
-        }*/
-
-        /*private string GetPixelShaderSource()
-        {
-
-            foreach (string s in Assembly.GetExecutingAssembly().GetManifestResourceNames()) Debug.WriteLine(s);
-
-            Stream fragmentShaderStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(PIXEL_SHADER_FILE);
-
-            // Ajoute les variables
-            // uniform vec3      iResolution;           // viewport resolution (in pixels)
-            // uniform float     iGlobalTime;           // shader playback time (in seconds)
-            // uniform vec4      iMouse;                // mouse pixel coords. xy: current (if MLB down), zw: click
-            // uniform float     iChannelTime[4];       // channel playback time (in seconds)
-            // uniform vec3      iChannelResolution[4]; // channel resolution (in pixels)
-            // uniform samplerXX iChannel0..3;          // input channel. XX = 2D/Cube
-            // uniform vec4      iDate;                 // (year, month, day, time in seconds)
-            // uniform float     iSampleRate;     
-            string fragmentShaderSource = new StreamReader(fragmentShaderStream).ReadToEnd();
-
-            return fragmentShaderSource;
-        }*/
-
+        #region Initialize the control
+        /// <summary>
+        /// Do the settings of the OpenGL control.
+        /// </summary>
+        /// <param name="sender">Object sending the event.</param>
+        /// <param name="e">Argument for this event.</param>
         private void GlControl_Load(object sender, EventArgs e)
         {
             if (!_isDesignMode)
             {
+                // Set the default background color of the OpenGL control
                 GL.ClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 
-                // Lit le contenu du shader
-                //if (!InitializeShader()) return;
-
-                // Heure de début pour iGlobalTime
+                // Starting time for iGlobalTime variable
                 _startTime = Process.GetCurrentProcess().StartTime;
 
                 // Prépare le vertex shader			
@@ -181,12 +150,21 @@ namespace GLow_Screensaver.Controls
                 GL.LinkProgram(_glProgram);
                 GL.UseProgram(_glProgram);
 
-                //InitializeFragmentShader(GetPixelShaderSource());
-
                 SetupViewport();
 
                 _glInitialized = true;
             }
+        }
+        #endregion
+        #region Render the content
+        /// <summary>
+        /// Force the control to update the content displayed.
+        /// </summary>
+        /// <param name="sender">Object sending this event.</param>
+        /// <param name="e">The argument for this event.</param>
+        private void CompositionTarget_Rendering(object sender, EventArgs e)
+        {
+            if (_glInitialized) glControl.Invalidate();
         }
 
         /// <summary>
@@ -204,10 +182,15 @@ namespace GLow_Screensaver.Controls
             }
         }
 
+        /// <summary>
+        /// Initialize the given fragment shader.
+        /// </summary>
+        /// <param name="imageSourceCode">Source code of the fragment shader to initialize.</param>
         public void InitializeFragmentShader(string imageSourceCode)
         {
             if (_glProgram > 0)
             {
+                // Insert in the first line the global variables used by the shader
                 imageSourceCode = "uniform vec3  iResolution;\r\n" + imageSourceCode;
                 imageSourceCode = "uniform float iGlobalTime;" + imageSourceCode;
                 imageSourceCode = "uniform vec4 iMouse;" + imageSourceCode;
@@ -229,14 +212,14 @@ namespace GLow_Screensaver.Controls
                 _glFramentShader = GL.CreateShader(ShaderType.FragmentShader);
                 GL.ShaderSource(_glFramentShader, imageSourceCode);
                 GL.CompileShader(_glFramentShader);
-                string result = GL.GetShaderInfoLog(_glFramentShader).Trim();
 
+                // Check if some errors are existing. This method is not clean but i can't use the extensions of OpenGL.
+                string result = GL.GetShaderInfoLog(_glFramentShader).Trim();
                 if (result != "" && result.ToLower() != "no errors.")
                 {
                     Debug.WriteLine(result);
                     MessageBox.Show(result);
                 }
-
 
                 // Attach the fragment shader to the program
                 GL.AttachShader(_glProgram, _glFramentShader);
@@ -245,20 +228,19 @@ namespace GLow_Screensaver.Controls
             }
         }
 
-        private void GlControl_Resize(object sender, EventArgs e)
-        {
-            if (!_isDesignMode)
-            {
-                SetupViewport();
-                glControl.Invalidate();
-            }
-        }
-
+        /// <summary>
+        /// When the control is painted, render the content of the OpenGL control.
+        /// </summary>
+        /// <param name="sender">Object sending this event.</param>
+        /// <param name="e">Argument for this event.</param>
         private void GlControl_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             if (!_isDesignMode) Render();
         }
 
+        /// <summary>
+        /// Render the animation.
+        /// </summary>
         private void Render()
         {
             if (!_isDesignMode)
@@ -270,39 +252,38 @@ namespace GLow_Screensaver.Controls
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.LoadIdentity();
 
-                // Définit le paramètre iResolution
+                // Set the resolution iResolution used by the shader
                 float w = (float)ActualWidth;
                 float h = (float)ActualHeight;
                 int iResolution = GL.GetUniformLocation(_glProgram, "iResolution");
                 if (iResolution != -1) GL.Uniform3(iResolution, (float)w, (float)h, (float)0);
 
-                // Debug.WriteLine(iResolution+" - "+w+" - "+h);
-
-                // Définit le paramètre iGlobalTime			
+                // Set the iGlobalTime variable used by the shader
                 float timespan = (float)(DateTime.Now - _startTime).TotalSeconds;
                 int iGlobalTime = GL.GetUniformLocation(_glProgram, "iGlobalTime");
                 if (iGlobalTime != -1) GL.Uniform1(iGlobalTime, (float)timespan);
 
-                // Définit le paramètre iDate			
+                // Set the iDate variable used by some shaders
                 int iDate = GL.GetUniformLocation(_glProgram, "iDate");
                 if (iDate != -1) GL.Uniform4(iDate, (float)DateTime.Now.Year, (float)DateTime.Now.Month, (float)DateTime.Now.Day, (float)DateTime.Now.TimeOfDay.TotalSeconds);
 
-                // Définit le paramètre iMouse			
+                // Set the position of the mouse iMouse used by the shader
                 int iMouse = GL.GetUniformLocation(_glProgram, "iMouse");
                 if (iMouse != -1) GL.Uniform4(iMouse, (float)_mousePosition.X, (float)((double)h - _mousePosition.Y), (float)_mousePosition.X, (float)((double)h - _mousePosition.Y));
 
+                // Create 2 triangles where the fragment shader will be displayed
                 GL.Begin(BeginMode.Quads);
                 GL.Color3(0, 0, 0);
                 GL.Vertex2(0, 0);
                 GL.Vertex2(glControl.Width, 0);
                 GL.Vertex2(glControl.Width, glControl.Height);
                 GL.Vertex2(0, glControl.Height);
-
                 GL.End();
 
+                // Show the back buffer
                 glControl.SwapBuffers();
 
-                // Met à jour le FPS
+                // Update the FPS
                 if ((DateTime.Now - _timeFPS).TotalSeconds >= 1)
                 {
                     _timeFPS = DateTime.Now;
@@ -312,10 +293,33 @@ namespace GLow_Screensaver.Controls
                 _fps++;
 
                 // Hide the mouse after a delay if it's not a preview
-                if ((!IsPreview) && ((DateTime.Now - _timeVisibleMouse).TotalSeconds >= 5)) Mouse.OverrideCursor = Cursors.None;
+                if ((!IsPreview) && ((DateTime.Now - _timeVisibleMouse).TotalSeconds >= 5))
+                {
+                    Mouse.OverrideCursor = Cursors.None;
+                }
+            }
+        }
+        #endregion
+        #region Update the viewport when the size change
+        /// <summary>
+        /// When a resize of the control is fired, the size of the viewport of
+        /// the OpenGL is changed before to invalide the content to force the 
+        /// refresh.
+        /// </summary>
+        /// <param name="sender">Object sending the event.</param>
+        /// <param name="e">Argument for this event.</param>
+        private void GlControl_Resize(object sender, EventArgs e)
+        {
+            if (!_isDesignMode)
+            {
+                SetupViewport();
+                glControl.Invalidate();
             }
         }
 
+        /// <summary>
+        /// Resize the viewport in function of the size of the control.
+        /// </summary>
         private void SetupViewport()
         {
             int w = glControl.Width;
@@ -325,7 +329,13 @@ namespace GLow_Screensaver.Controls
             GL.Ortho(0, w, 0, h, -1, 1); //Bottom left corner pixel has corrdinate 0,0
             GL.Viewport(0, 0, w, h); //Use all of the MyGlControl painting area
         }
-
+        #endregion
+        #region Mouse and keyboard events
+        /// <summary>
+        /// Update the position of the mouse.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void glControl_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right) _mousePosition = new Point(e.X, e.Y);
@@ -343,12 +353,26 @@ namespace GLow_Screensaver.Controls
             }
         }
 
+        /// <summary>
+        /// If a left click happened, close the application.
+        /// </summary>
+        /// <param name="sender">Object sending this event.</param>
+        /// <param name="e">Argument for this event.</param>
         private void glControl_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+            // FIXME when a click happen, just fire an event that the window can catch
             if (!IsPreview)
             {
                 if (e.Button == System.Windows.Forms.MouseButtons.Left) Application.Current.Shutdown();
             }
+        }
+        #endregion
+
+        private static void IsShowFPS_PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            GLScreensaverControl ctrl = (GLScreensaverControl)sender;
+            //Debug.WriteLine("ctrl.IsShowFPS:" + ctrl.IsShowFPS);
+            //ctrl.FPSPopup.IsOpen = ctrl.IsShowFPS; // FIXME Activate again this FPS counter
         }
 
         //private void Window_KeyUp(object sender, KeyEventArgs e)

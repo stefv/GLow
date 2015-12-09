@@ -22,18 +22,29 @@ using System.Windows.Controls;
 namespace GLow_Screensaver.Controls
 {
     /// <summary>
-    /// Logique d'interaction pour PreviewControl.xaml
+    /// Control to preview a shader.
     /// </summary>
     public partial class PreviewControl : UserControl
     {
+        #region Constructors
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public PreviewControl()
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region Method to set the shader to preview
+        /// <summary>
+        /// Set the shader to preview with the given source code.
+        /// </summary>
+        /// <param name="code">Source code of the shader to preview.</param>
         public void InitializeFragmentShader(string code)
         {
             preview.InitializeFragmentShader(code);
         }
+        #endregion
     }
 }

@@ -50,18 +50,6 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>2BA82C77995AB7DF1171DA6139F7A78E178B96C7</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>GLow Screensaver_CléTemporaire.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
@@ -154,14 +142,6 @@
     <Compile Include="Controls\PreviewControl.xaml.cs">
       <DependentUpon>PreviewControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\DataClasses1.cs">
-      <DependentUpon>DataClasses1.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="Data\DataClasses1.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataClasses1.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Data\ImageSource.cs" />
     <Compile Include="Data\Shader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -234,16 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Data\DataClasses1.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="GLow Screensaver_CléTemporaire.pfx" />
     <None Include="packages.config" />
-    <None Include="Data\DataClasses1.dbml.layout">
-      <DependentUpon>DataClasses1.dbml</DependentUpon>
-    </None>
     <Resource Include="Images\favorite.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -257,40 +228,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <EmbeddedResource Include="xshd\HLSL.xshd" />
-    <EmbeddedResource Include="Shaders\Simple.glsl" />
-    <EmbeddedResource Include="Shaders\Blob.glsl" />
-    <EmbeddedResource Include="Shaders\Flame.glsl" />
-    <EmbeddedResource Include="Shaders\Test3.glsl" />
-    <EmbeddedResource Include="Shaders\SeaScape.glsl" />
-    <EmbeddedResource Include="Shaders\Warping.glsl" />
-    <EmbeddedResource Include="Shaders\Bubbles.glsl" />
-    <EmbeddedResource Include="Shaders\Generators.glsl" />
-    <EmbeddedResource Include="Shaders\Silexars.glsl" />
-    <EmbeddedResource Include="Shaders\StarNest.glsl" />
-    <EmbeddedResource Include="Shaders\Waves.glsl" />
-    <EmbeddedResource Include="Shaders\TheRoadToHell.glsl" />
-    <EmbeddedResource Include="Shaders\Fireball.glsl" />
-    <EmbeddedResource Include="Shaders\Mandelbrot.glsl" />
-    <EmbeddedResource Include="Shaders\CubeAndSphere.glsl" />
-    <EmbeddedResource Include="Shaders\Relentless.glsl" />
-    <EmbeddedResource Include="Shaders\TorusJourney.glsl" />
-    <EmbeddedResource Include="Shaders\Cellular.glsl" />
-    <EmbeddedResource Include="Shaders\Eclipse.glsl" />
-    <EmbeddedResource Include="Shaders\TextCandy.glsl" />
-    <EmbeddedResource Include="Shaders\WetStone.glsl" />
-    <EmbeddedResource Include="Shaders\MengerJourney.glsl" />
-    <EmbeddedResource Include="Shaders\Simplicity.glsl" />
-    <EmbeddedResource Include="Shaders\Dubstep.glsl" />
-    <EmbeddedResource Include="Shaders\TotalNoob.glsl" />
-    <EmbeddedResource Include="Shaders\Worms.glsl" />
-    <EmbeddedResource Include="Shaders\Ether.glsl" />
-    <EmbeddedResource Include="Shaders\BallOfFire.glsl" />
-    <EmbeddedResource Include="Shaders\Angels.glsl" />
     <None Include="Properties\app.manifest" />
     <Compile Include="Data\Database.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Shaders\Apollonian.glsl" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -310,9 +249,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Shaders\Primitives.glsl" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\opengl.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -320,9 +256,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Lib\x64\sqlite3.dll" />
-    <Content Include="Lib\x64\sqlite3.old.dll" />
     <Content Include="Lib\x86\sqlite3.dll" />
-    <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
