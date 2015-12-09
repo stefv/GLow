@@ -24,7 +24,7 @@ using System.Windows.Forms;
 namespace GLow_Screensaver
 {
     /// <summary>
-    /// Application.
+    /// The application.
     /// </summary>
     public partial class App : System.Windows.Application
     {
@@ -48,10 +48,10 @@ namespace GLow_Screensaver
                 IntPtr previewWndHandle = new IntPtr(long.Parse(secondArg));
                 MainWindow _window = new MainWindow(previewWndHandle) { IsPreview = true };
             }
-            // Show the screensaver
+            // Display the screensaver
             else if ((firstArg == null) || (firstArg.ToUpper() == "/S"))
             {
-                // Show the screensaver on each screen
+                // Display the screensaver on each screen
                 foreach (Screen screen in Screen.AllScreens)
                 {
                     MainWindow window = new MainWindow(screen.WorkingArea) { IsPreview = false };
@@ -59,9 +59,15 @@ namespace GLow_Screensaver
                 }
             }
             // Show the settings dialog
-            else if ((firstArg.ToUpper() == "/C") || ((firstArg.ToUpper().StartsWith("/C:")))) new SettingsDialog().ShowDialog();
+            else if ((firstArg.ToUpper() == "/C") || ((firstArg.ToUpper().StartsWith("/C:"))))
+            {
+                new SettingsDialog().ShowDialog();
+            }
             // Just quit the application
-            else App.Current.Shutdown();
+            else
+            {
+                App.Current.Shutdown();
+            }
         }
     }
 }
