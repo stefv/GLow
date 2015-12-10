@@ -156,7 +156,6 @@
     <Compile Include="Windows\Converters\FavoriteConverter.cs" />
     <Compile Include="Windows\Converters\ReadOnlyConverter.cs" />
     <Compile Include="Windows\Converters\ShaderLanguageTechnologyConverter.cs" />
-    <Compile Include="Windows\Converters\AuthorConverter.cs" />
     <Compile Include="Controls\GLScreensaverControl.xaml.cs">
       <DependentUpon>GLScreensaverControl.xaml</DependentUpon>
     </Compile>
