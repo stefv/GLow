@@ -253,8 +253,8 @@ namespace GLow_Screensaver.Controls
                 GL.LoadIdentity();
 
                 // Set the resolution iResolution used by the shader
-                float w = (float)ActualWidth;
-                float h = (float)ActualHeight;
+                float w = glControl.Width;
+                float h = glControl.Height;
                 int iResolution = GL.GetUniformLocation(_glProgram, "iResolution");
                 if (iResolution != -1) GL.Uniform3(iResolution, (float)w, (float)h, (float)0);
 
@@ -326,8 +326,8 @@ namespace GLow_Screensaver.Controls
             int h = glControl.Height;
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(0, w, 0, h, -1, 1); //Bottom left corner pixel has corrdinate 0,0
-            GL.Viewport(0, 0, w, h); //Use all of the MyGlControl painting area
+            GL.Ortho(0, w, 0, h, -1, 1);    //Bottom left corner pixel has corrdinate 0,0
+            GL.Viewport(0, 0, w, h);        //Use all of the MyGlControl painting area
         }
         #endregion
         #region Mouse and keyboard events

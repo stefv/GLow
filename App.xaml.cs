@@ -43,7 +43,7 @@ namespace GLow_Screensaver
             if (e.Args.Length >= 2) secondArg = e.Args[1];
 
             // Display the preview
-            if ((firstArg.ToUpper() == "/P") && (secondArg != null))
+            if ((firstArg != null) && (firstArg.ToUpper() == "/P") && (secondArg != null))
             {
                 IntPtr previewWndHandle = new IntPtr(long.Parse(secondArg));
                 MainWindow _window = new MainWindow(previewWndHandle) { IsPreview = true };
