@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//
+// GLow screensaver
+// Copyright(C) Stéphane VANPOPERYNGHE
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or(at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+//
+-->
+<local:WindowBase
+    x:Class="GLow_Screensaver.ShaderDownloadDialog" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:GLow_Screensaver.Windows"
+	Title="Downloading shaders..." WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ShowInTaskbar="False"
+	Width="300" SizeToContent="Height" Style="{StaticResource GLowWindowStyle}">
+
+    <Grid Margin="0,0,-2,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <ProgressBar x:Name="progress" Grid.Row="0" Margin="5,10,5,10" Value="0" Maximum="100" Style="{StaticResource GLowProgressBarStyle}" />
+        <Expander Grid.Row="1" Margin="5" IsExpanded="False" Style="{StaticResource GLowExpenderStyle}" Header="Informations">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!-- Shader ID -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource GLowTextblockStyle}" Text="Shader ID : " />
+                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource GLowTextblockStyle}" Text="downloading..." x:Name="shaderIDText" />
+                <!-- Shader name -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource GLowTextblockStyle}" Text="Name : " />
+                <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource GLowTextblockStyle}" Text="downloading..." x:Name="shaderNameText" />
+            </Grid>
+        </Expander>
+        <Button Grid.Row="2" Margin="5" Content="_Cancel" Width="100" Click="ButtonCancel_Click" Style="{StaticResource GLowButtonStyle}" />
+    </Grid>
+</local:WindowBase>

@@ -144,13 +144,9 @@
     </Compile>
     <Compile Include="Data\ImageSource.cs" />
     <Compile Include="Data\Shader.cs" />
+    <Compile Include="PrivateData.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\WPFAssemblyInfo.cs" />
-    <Compile Include="PrivateData1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PrivateData.resx</DependentUpon>
-    </Compile>
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="Utils\ObservableHashSet.cs" />
@@ -164,24 +160,20 @@
     <Compile Include="Controls\GLScreensaverControl.xaml.cs">
       <DependentUpon>GLScreensaverControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ShaderDownloadDialog.xaml.cs">
+      <DependentUpon>ShaderDownloadDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ShadertoyJson\ListAll.cs" />
     <Compile Include="Windows\ShadertoyJson\ShaderRoot.cs" />
     <Compile Include="Windows\ShadertoyJson\ShaderInfoV1.cs" />
     <Compile Include="Windows\ShadertoyJson\RenderPassV1.cs" />
     <Compile Include="Windows\ShadertoyJson\ShaderV1.cs" />
     <Compile Include="Windows\WindowBase.cs" />
-    <Compile Include="Windows\EditWindow.xaml.cs">
-      <DependentUpon>EditWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ShaderDownloadDialog.xaml.cs">
-      <DependentUpon>ShaderDownloadDialog.xaml</DependentUpon>
+    <Compile Include="Windows\ShaderEditWindow.xaml.cs">
+      <DependentUpon>ShaderEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SettingsDialog.xaml.cs">
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ShaderEditorDialog.xaml.cs">
-      <DependentUpon>ShaderEditorDialog.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <SubType>Code</SubType>
@@ -200,20 +192,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\EditWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\ScrollBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Windows\ShaderDownloadDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ShaderEditWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\SettingsDialog.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ShaderEditorDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\MainWindow.xaml" />
@@ -224,6 +210,7 @@
     <EmbeddedResource Include="PrivateData.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PrivateData1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="xshd\GLSL.xshd" />
     <Resource Include="Images\favorite.png">
