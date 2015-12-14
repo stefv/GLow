@@ -222,7 +222,7 @@
     <Resource Include="Images\locked.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\monitor-32743_1280.png">
+    <Resource Include="Images\monitor-dark.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="Properties\app.manifest" />
@@ -256,6 +256,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Archive.txt" />
+    <Resource Include="Images\monitor-light.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Lib\x64\sqlite3.dll" />
     <Content Include="Lib\x86\sqlite3.dll" />
   </ItemGroup>

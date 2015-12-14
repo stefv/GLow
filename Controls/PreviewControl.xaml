@@ -27,10 +27,6 @@
              xmlns:local="clr-namespace:GLow_Screensaver.Controls"
              mc:Ignorable="d" d:DesignHeight="211" d:DesignWidth="232.5">
 
-    <UserControl.Resources>
-        <BitmapImage x:Key="monitor" UriSource="/GLow Screensaver;component/Assets/monitor-32743_1280.png" />
-    </UserControl.Resources>
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3.5*"/>
@@ -42,7 +38,7 @@
             <RowDefinition Height="71.5*"/>
             <RowDefinition Height="24.5*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="image" Grid.ColumnSpan="3" Grid.RowSpan="3" Source="../Images/monitor-32743_1280.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" />
+        <Image x:Name="monitor" Grid.ColumnSpan="3" Grid.RowSpan="3" Style="{StaticResource PreviewImageStyle}" />
         <local:GLScreensaverControl x:Name="preview" IsPreview="True" Height="Auto" Width="Auto" Grid.Column="1" Grid.Row="1" />
     </Grid>
 </UserControl>
