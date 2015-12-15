@@ -64,6 +64,9 @@
   <PropertyGroup>
     <StartupObject>GLow_Screensaver.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>glow.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSCore, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\CSCore.1.0.0.0\lib\net35-client\CSCore.dll</HintPath>
@@ -264,6 +267,7 @@
     <Resource Include="Images\monitor-light.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="glow.ico" />
     <Content Include="Lib\x64\sqlite3.dll" />
     <Content Include="Lib\x86\sqlite3.dll" />
   </ItemGroup>
