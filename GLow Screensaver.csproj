@@ -164,6 +164,9 @@
     <Compile Include="Controls\GLScreensaverControl.xaml.cs">
       <DependentUpon>GLScreensaverControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\SettingsDialog.xaml.cs">
+      <DependentUpon>SettingsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ShaderDownloadDialog.xaml.cs">
       <DependentUpon>ShaderDownloadDialog.xaml</DependentUpon>
     </Compile>
@@ -175,9 +178,6 @@
     <Compile Include="Windows\WindowBase.cs" />
     <Compile Include="Windows\ShaderEditWindow.xaml.cs">
       <DependentUpon>ShaderEditWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\SettingsDialog.xaml.cs">
-      <DependentUpon>SettingsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <SubType>Code</SubType>
@@ -196,14 +196,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Windows\SettingsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ShaderDownloadDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ShaderEditWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\SettingsDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\MainWindow.xaml" />
