@@ -164,6 +164,10 @@
     <Compile Include="Controls\GLScreensaverControl.xaml.cs">
       <DependentUpon>GLScreensaverControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Windows\SettingsDialog.xaml.cs">
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
     </Compile>
@@ -179,10 +183,6 @@
     <Compile Include="Windows\ShaderEditWindow.xaml.cs">
       <DependentUpon>ShaderEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\MainWindow.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\GLScreensaverControl.xaml">
@@ -193,6 +193,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Default.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -207,7 +211,6 @@
     <Page Include="Windows\ShaderEditWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\MainWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -255,9 +258,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\new.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Archive.txt" />
