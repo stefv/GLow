@@ -268,6 +268,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="glow.ico" />
+    <Content Include="Images\glow.ico" />
     <Content Include="Lib\x64\sqlite3.dll" />
     <Content Include="Lib\x86\sqlite3.dll" />
   </ItemGroup>
