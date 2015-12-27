@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -67,11 +67,10 @@
   <PropertyGroup>
     <ApplicationIcon>glow.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSCore, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\CSCore.1.0.0.0\lib\net35-client\CSCore.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>packages\AvalonEdit.5.0.2\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
@@ -106,18 +105,6 @@
     <Reference Include="System.Data.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SQLite.EF6.1.0.99.0\lib\net40\System.Data.SQLite.EF6.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SQLite.Linq.1.0.99.0\lib\net40\System.Data.SQLite.Linq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml">
@@ -132,10 +119,6 @@
     </Reference>
     <Reference Include="WindowsFormsIntegration">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=2.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -263,7 +246,7 @@
     <Resource Include="Images\new.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Archive.txt" />
+    <None Include="Archive.txt" />
     <Resource Include="Images\monitor-light.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -280,7 +263,9 @@
   <PropertyGroup>
     <PostBuildEvent>if '$(PROCESSOR_ARCHITECTURE)'=='AMD64' (xcopy /y "$(ProjectDir)Lib\x64\sqlite3.dll" ".\") 
 if '$(PROCESSOR_ARCHITECTURE)'=='x86' (xcopy /y "$(ProjectDir)Lib\x86\sqlite3.dll" ".\")
-if '$(PROCESSOR_ARCHITEW6432)'=='AMD64' (xcopy /y "$(ProjectDir)Lib\x64\sqlite3.dll" ".\")</PostBuildEvent>
+if '$(PROCESSOR_ARCHITEW6432)'=='AMD64' (xcopy /y "$(ProjectDir)Lib\x64\sqlite3.dll" ".\")
+
+copy "$(TargetPath)" "GLow.scr"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

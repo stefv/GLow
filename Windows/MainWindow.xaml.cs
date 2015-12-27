@@ -18,6 +18,7 @@
 //
 
 using GLow_Screensaver.Utils;
+using Microsoft.Win32;
 using System;
 using System.Drawing;
 using System.Windows;
@@ -74,6 +75,7 @@ namespace GLow_Screensaver
             Height = 400;
 #endif
             Loaded += NormalModeWindow_Loaded;
+            SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
         }
 
         /// <summary>
@@ -104,6 +106,16 @@ namespace GLow_Screensaver
             shaderControl.InitializeFragmentShader();
         }
         #endregion
+
+        /// <summary>
+        /// Close the window when the system suspend.
+        /// </summary>
+        /// <param name="sender">The object sending the event.</param>
+        /// <param name="e">Argument for this event.</param>
+        private void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        {
+            if (e.Mode == PowerModes.Suspend) Close();
+        }
 
         /// <summary>
         /// In preview mode, close the window if the panret window is closed.

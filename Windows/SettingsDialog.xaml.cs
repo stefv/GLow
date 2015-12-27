@@ -165,7 +165,6 @@ namespace GLow_Screensaver
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ShaderList = new ObservableHashSet<Shader>();
-            ShaderList.CollectionChanged += ShaderList_CollectionChanged;
 
             _filteredList = new CollectionViewSource();
             _filteredList.Source = ShaderList;
@@ -221,9 +220,26 @@ namespace GLow_Screensaver
             {
                 Shader shader = (Shader)e.Item;
                 string searchText = textBoxSearch.Text.ToLower();
-                if (shader.Name.ToLower().Contains(searchText)) e.Accepted = true;
-                else if (shader.Description.ToLower().Contains(searchText)) e.Accepted = true;
+                if (searchText.Trim() != "")
+                {
+                    if (shader.Name.ToLower().Contains(searchText))
+                    {
+                        e.Accepted = true;
+                        return;
+                    }
+                    else if (shader.Description.ToLower().Contains(searchText))
+                    {
+                        e.Accepted = true;
+                        return;
+                    }
+                } else
+                {
+                    e.Accepted = true;
+                    return;
+                }
             }
+
+            e.Accepted = false;
         }
 
         private void textBoxSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -231,11 +247,6 @@ namespace GLow_Screensaver
             _filteredList.View.Refresh();
         }
         #endregion
-
-        private void ShaderList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-        }
-
         #region Buttons
         /// <summary>
         /// Open a dialog box to update the shader list.
