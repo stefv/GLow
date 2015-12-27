@@ -252,6 +252,7 @@
     </Resource>
     <Content Include="glow.ico" />
     <Content Include="Images\glow.ico" />
+    <None Include="Inno setup\GLow.iss" />
     <Content Include="Lib\x64\sqlite3.dll" />
     <Content Include="Lib\x86\sqlite3.dll" />
   </ItemGroup>
