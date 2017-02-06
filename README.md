@@ -15,3 +15,11 @@ Here the steps to create the resource file in Visual Studio 2015 (french version
 ![Process to create the string resource for the key](https://raw.githubusercontent.com/stefv/GLow/master/Site/Images/create-the-key.png)
 
 After this second step, you can compile the project.
+
+# Test GLow
+To test the screensaver in you IDE, you must pass a parameter. these parameters are:
+
+Parameter | Description
+--------- | -----------
+/c | Display the configuration box of the screensaver.
+/s | Show the screensaver in full screen mode.
