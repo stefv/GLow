@@ -10,6 +10,7 @@ GLow is an open source screensaver for Windows using shaders. The shaders are sm
 # Screenshots
 You can download and select the screensaver you want in the list:
 ![The configuration screen](https://raw.githubusercontent.com/stefv/GLow/master/Site/Images/conf-screen.png)
+
 If you are currious, you can see the source code of the shader used to realize the animation:
 ![See the source code of the 3D shader](https://raw.githubusercontent.com/stefv/GLow/master/Site/Images/code-window.png)
 
