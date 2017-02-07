@@ -73,6 +73,16 @@ namespace GLow_Screensaver
 
             Marshal.FreeHGlobal(accentPtr);
         }
+
+        private void CloseBox_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ReduiceBox_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
     }
 
     internal enum AccentState

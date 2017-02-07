@@ -1,4 +1,4 @@
-﻿<Button x:Class="GLow_Screensaver.Controls.CloseBox"
+﻿<Button x:Class="GLow_Screensaver.Controls.ReduiceBox"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -19,6 +19,6 @@
     </Button.Resources>
 
     <Grid Style="{StaticResource CloseBoxStyle}">
-        <TextBlock Text="X" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock Text="_" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </Button>

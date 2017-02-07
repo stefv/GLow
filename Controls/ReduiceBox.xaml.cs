@@ -5,9 +5,9 @@ namespace GLow_Screensaver.Controls
     /// <summary>
     /// Interaction logic for CloseBox.xaml
     /// </summary>
-    public partial class CloseBox : Button
+    public partial class ReduiceBox : Button
     {
-        public CloseBox()
+        public ReduiceBox()
         {
             InitializeComponent();
         }
