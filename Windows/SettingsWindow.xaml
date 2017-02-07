@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="22*"/>
                 <ColumnDefinition Width="41*"/>
             </Grid.ColumnDefinitions>
-            <Border Background="#7F808080" Grid.Column="1" Margin="0,0,0,0.5">
+            <Border Background="#E5FFFFFF" Grid.Column="1" Margin="0,0,0,0.5">
             </Border>
             <Border Background="White" Grid.Column="0" Margin="0,0,0,0.5" />
         </Grid>
