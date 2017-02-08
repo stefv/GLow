@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+//
+// GLow screensaver
+// Copyright(C) Stéphane VANPOPERYNGHE
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or(at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+//
+-->
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Controls="clr-namespace:GLow_Screensaver.Controls" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="GLow_Screensaver.SettingsWindow" Title="GLow Screensaver" ShowInTaskbar="True"
+        WindowStyle="SingleBorderWindow" d:DesignWidth="541.305" d:DesignHeight="517.998" Icon="/GLow Screensaver;component/Images/icon-final.png">
+
+    <Window.Resources>
+        <Image x:Key="MonitorIcon" Source="/GLow Screensaver;component/Images/Icons/appbar.monitor.png" />
+        <Image x:Key="SettingsIcon" Source="/GLow Screensaver;component/Images/Icons/appbar.settings.png" />
+    </Window.Resources>
+
+    <Grid x:Name="grid" Background="{x:Null}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="41*"/>
+        </Grid.ColumnDefinitions>
+        <Border Background="Black" Grid.Column="0" Margin="0,0,0,0.5">
+            <StackPanel Orientation="Vertical">
+                <Button Content="{StaticResource MonitorIcon}" Background="Transparent" BorderThickness="0" />
+                <Button Content="{StaticResource SettingsIcon}" Background="Transparent" BorderThickness="0" />
+            </StackPanel>
+        </Border>
+        <Border Background="White" Grid.Column="1" Margin="0,0,0,0.5"/>
+    </Grid>
+</Window>

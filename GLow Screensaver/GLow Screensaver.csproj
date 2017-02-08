@@ -155,12 +155,6 @@
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ReduiceBox.xaml.cs">
-      <DependentUpon>ReduiceBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CloseBox.xaml.cs">
-      <DependentUpon>CloseBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\PreviewControl.xaml.cs">
       <DependentUpon>PreviewControl.xaml</DependentUpon>
     </Compile>
@@ -206,14 +200,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\ReduiceBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\CloseBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\GLScreensaverControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -300,6 +286,8 @@
     <Content Include="glow.ico" />
     <Content Include="Images\glow.ico" />
     <None Include="Inno setup\GLow.iss" />
+    <Resource Include="Images\Icons\appbar.monitor.png" />
+    <Resource Include="Images\Icons\appbar.settings.png" />
     <Content Include="Lib\x64\sqlite3.dll" />
     <Content Include="Lib\x86\sqlite3.dll" />
   </ItemGroup>
