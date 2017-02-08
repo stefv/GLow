@@ -285,7 +285,6 @@
     <Content Include="bin\Debug\SQLite3.dll" />
     <Content Include="glow.ico" />
     <Content Include="Images\glow.ico" />
-    <None Include="Inno setup\GLow.iss" />
     <Resource Include="Images\Icons\appbar.monitor.png" />
     <Resource Include="Images\Icons\appbar.settings.png" />
     <Content Include="Lib\x64\sqlite3.dll" />
