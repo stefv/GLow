@@ -17,9 +17,9 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-namespace GLow_Screensaver_service
+namespace GLowService
 {
-    partial class Service1
+    partial class GlowService
     {
         /// <summary> 
         /// Variable nécessaire au concepteur.
@@ -48,7 +48,7 @@ namespace GLow_Screensaver_service
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            this.ServiceName = "Service";
         }
 
         #endregion

@@ -21,19 +21,28 @@ using System.ServiceProcess;
 
 namespace GLowService
 {
-    static class Program
+    public partial class GlowService : ServiceBase
     {
-        /// <summary>
-        /// Point d'entrée principal de l'application.
-        /// </summary>
-        static void Main()
+        public GlowService()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
-            {
-                new GlowService()
-            };
-            ServiceBase.Run(ServicesToRun);
+            InitializeComponent();
+        }
+
+        protected override void OnStart(string[] args)
+        {
+            System.Diagnostics.Debugger.Launch();
+        }
+
+        protected override void OnStop()
+        {
+        }
+
+        /// <summary>
+        /// Create the database if it doesn't exist.
+        /// </summary>
+        private void CreateDatabase()
+        {
+            Database.Instance.GetConnection();
         }
     }
 }

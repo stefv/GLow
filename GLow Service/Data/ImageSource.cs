@@ -17,31 +17,41 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
+using SQLite;
 
-namespace GLow_Screensaver_service
+namespace GLow_Screensaver.Data
 {
-    public partial class Service1 : ServiceBase
-    {
-        public Service1()
-        {
-            InitializeComponent();
-        }
+    /// <summary>
+    /// Source for the image.
+    /// </summary>
+    [Table("imagesource")]
+	public class ImageSource
+	{
+        /// <summary>
+        /// Identity.
+        /// </summary>
+        [AutoIncrement]
+        [PrimaryKey]
+        [Column("id")]
+		public int Id {get; set;}
+		
+		/// <summary>
+		/// Source code of the shader.
+		/// </summary>
+		[Column("sourceImage")]
+		public string SourceCode {get;set;}
 
-        protected override void OnStart(string[] args)
-        {
-        }
+        /// <summary>
+        /// Source for the image.
+        /// </summary>
+        [Column("shader")]
+        public int Shader { get; set; }
 
-        protected override void OnStop()
-        {
-        }
-    }
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public ImageSource()
+		{
+		}
+	}
 }
