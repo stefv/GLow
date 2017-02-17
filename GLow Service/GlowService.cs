@@ -24,25 +24,23 @@ namespace GLowService
 {
     public partial class GlowService : ServiceBase
     {
-        private const string EVENTLOG_SOURCE = "GLow Screensaver Service";
-
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public GlowService()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Start the service.
+        /// </summary>
+        /// <param name="args">Arguments of the service.</param>
         protected override void OnStart(string[] args)
         {
+#if DEBUG
             System.Diagnostics.Debugger.Launch();
-
-            if (!EventLog.SourceExists(EVENTLOG_SOURCE)) EventLog.CreateEventSource(EVENTLOG_SOURCE, "GlowLog");
-            
-            // Create an EventLog instance and assign its source.
-            EventLog myLog = new EventLog();
-            myLog.Source = EVENTLOG_SOURCE;
-
-            // Write an informational entry to the event log.    
-            myLog.WriteEntry("Ca marche !");
+#endif
 
             CreateDatabase();
         }

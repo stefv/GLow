@@ -37,7 +37,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\Temp\GLow\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -55,7 +55,7 @@
     <ApplicationIcon>glow.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>FB1338FC2279C2B6856CFCA1E1B8E92AA554A88E</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>54961793D258AB02B5574F482D382AAFD4A8503E</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>GLow Service_TemporaryKey.pfx</ManifestKeyFile>
@@ -93,6 +93,7 @@
     <Compile Include="Data\Shader.cs" />
     <Compile Include="Data\SQLite.cs" />
     <Compile Include="Data\SQLiteAsync.cs" />
+    <Compile Include="Helper\Log.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
