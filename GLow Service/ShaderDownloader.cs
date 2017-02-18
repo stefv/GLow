@@ -1,7 +1,29 @@
-﻿using Newtonsoft.Json;
+﻿//
+// GLow screensaver
+// Copyright(C) Stéphane VANPOPERYNGHE
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or(at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+//
+
+using GLowService.Data;
+using GLowService.ShadertoyJson;
+using Newtonsoft.Json;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 
@@ -9,6 +31,13 @@ namespace GLowService
 {
     public class ShaderDownloader
     {
+        #region Constants
+        /// <summary>
+        /// URL to the JSON services.
+        /// </summary>
+        private const string SHADERTOY_JSON_URL = "https://www.shadertoy.com/api/v1/shaders";
+        #endregion
+
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -16,7 +45,10 @@ namespace GLowService
         {
         }
 
-        public void download()
+        /// <summary>
+        /// Download the new shaders.
+        /// </summary>
+        public void Download()
         {
             // Get the connection to the database before to retreive the data from Shadertoy
             SQLiteConnection db = Database.Instance.GetConnection();

@@ -207,11 +207,6 @@
     <Compile Include="Windows\ShaderDownloadDialog.xaml.cs">
       <DependentUpon>ShaderDownloadDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ShadertoyJson\ListAll.cs" />
-    <Compile Include="Windows\ShadertoyJson\ShaderRoot.cs" />
-    <Compile Include="Windows\ShadertoyJson\ShaderInfoV1.cs" />
-    <Compile Include="Windows\ShadertoyJson\RenderPassV1.cs" />
-    <Compile Include="Windows\ShadertoyJson\ShaderV1.cs" />
     <Compile Include="Windows\WindowBase.cs" />
     <Compile Include="Windows\ShaderEditWindow.xaml.cs">
       <DependentUpon>ShaderEditWindow.xaml</DependentUpon>

@@ -19,27 +19,32 @@
 
 using System.Collections.Generic;
 
-namespace GLow_Screensaver.Windows.ShadertoyJson
+namespace GLowService.ShadertoyJson
 {
     /// <summary>
-    /// List with all the shaders from ShaderToy.
+    /// The root object of the shader.
     /// </summary>
-    public class ListAll
+    public class ShaderRoot
     {
         /// <summary>
-        /// The number of shaders.
+        /// The version number.
         /// </summary>
-        public int Shaders { get; set; }
+        public string ver { get; set; }
 
         /// <summary>
-        /// The list of shaders.
+        /// The informations of the shader.
         /// </summary>
-        public List<string> Results { get; set; }
+        public ShaderInfoV1 info { get; set; }
+
+        /// <summary>
+        /// The render pass informations.
+        /// </summary>
+        public List<RenderPassV1> renderpass { get; set; }
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public ListAll()
+        public ShaderRoot()
         {
         }
     }

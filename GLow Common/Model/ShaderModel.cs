@@ -17,24 +17,19 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-using SQLite;
 using System;
 using System.ComponentModel;
 
-namespace GLowService.Data
+namespace GLowCommon.Data
 {
     /// <summary>
     /// Description of the shader.
     /// </summary>
-    [Table("shader")]
-    public class Shader : INotifyPropertyChanged
+    public class ShaderModel : INotifyPropertyChanged
     {
         /// <summary>
         /// Identity.
         /// </summary>
-        [AutoIncrement]
-        [PrimaryKey]
-        [Column("id")]
         public int Id
         {
             get { return _id; }
@@ -53,14 +48,11 @@ namespace GLowService.Data
         /// <summary>
         /// Identity in Shadertoy.
         /// </summary>
-        [Unique]
-        [Column("shadertoyid")]
         public string ShadertoyID { get; set; }
 
         /// <summary>
         /// Name of shader.
         /// </summary>
-        [Column("name")]
         public string Name
         {
             get { return _name; }
@@ -79,7 +71,6 @@ namespace GLowService.Data
         /// <summary>
         /// Type of shader (HLSL or GLSL).
         /// </summary>
-        [Column("type")]
         public string Type
         {
             get { return _type; }
@@ -98,7 +89,6 @@ namespace GLowService.Data
         /// <summary>
         /// Name of shader.
         /// </summary>
-        [Column("description")]
         public string Description
         {
             get { return _description; }
@@ -117,25 +107,21 @@ namespace GLowService.Data
         /// <summary>
         /// Author.
         /// </summary>
-        [Column("author")]
         public string Author { get; set; }
 
         /// <summary>
         /// Last update from Shadertoy.
         /// </summary>
-        [Column("lastupdate")]
         public DateTime LastUpdate { get; set; }
 
         /// <summary>
         /// Read only shader. Only copies can be done.
         /// </summary>
-        [Column("readonly")]
         public bool ReadOnly { get; set; }
 
         /// <summary>
         /// true if it's a favorite.
         /// </summary>
-        [Column("favorite")]
         public bool Favorite
         {
             get { return _favorite; }
@@ -154,14 +140,14 @@ namespace GLowService.Data
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Shader()
+        public ShaderModel()
         {
         }
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Shader(Shader src)
+        public ShaderModel(ShaderModel src)
         {
             Id = src.Id;
             ShadertoyID = src.ShadertoyID;
@@ -177,7 +163,7 @@ namespace GLowService.Data
         /// Constructor with the name.
         /// </summary>
         /// <param name="name">Name of the shader.</param>
-        public Shader(string name)
+        public ShaderModel(string name)
         {
             this.Name = name;
         }
@@ -196,9 +182,9 @@ namespace GLowService.Data
 
         public override bool Equals(object obj)
         {
-            if ((obj == null) || !(obj is Shader)) return false;
+            if ((obj == null) || !(obj is ShaderModel)) return false;
 
-            Shader shader2 = (Shader)obj;
+            ShaderModel shader2 = (ShaderModel)obj;
             if (shader2.Id != this.Id) return false;
             if (shader2.ShadertoyID != this.ShadertoyID) return false;
             if (shader2.Name != this.Name) return false;

@@ -17,14 +17,13 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-using GLow_Screensaver.Data;
 using SQLite;
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-namespace GLowService
+namespace GLowService.Data
 {
     /// <summary>
     /// Access class to the database.

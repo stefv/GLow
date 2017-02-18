@@ -17,41 +17,25 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-using SQLite;
+using System.Collections.Generic;
 
-namespace GLowService.Data
+namespace GLowService.ShadertoyJson
 {
     /// <summary>
-    /// Source for the image.
+    /// The description of a shader from ShaderToy.
     /// </summary>
-    [Table("imagesource")]
-	public class ImageSource
-	{
+    public class ShaderV1
+    {
         /// <summary>
-        /// Identity.
+        /// The root of the shader.
         /// </summary>
-        [AutoIncrement]
-        [PrimaryKey]
-        [Column("id")]
-		public int Id {get; set;}
-		
-		/// <summary>
-		/// Source code of the shader.
-		/// </summary>
-		[Column("sourceImage")]
-		public string SourceCode {get;set;}
-
-        /// <summary>
-        /// Source for the image.
-        /// </summary>
-        [Column("shader")]
-        public int Shader { get; set; }
+        public ShaderRoot Shader { get; set; }
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public ImageSource()
-		{
-		}
-	}
+        public ShaderV1()
+        {
+        }
+    }
 }

@@ -17,35 +17,33 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-using System.Collections.Generic;
-
-namespace GLow_Screensaver.Windows.ShadertoyJson
+namespace GLowCommon.Data
 {
     /// <summary>
-    /// The root object of the shader.
+    /// Source for the image.
     /// </summary>
-    public class ShaderRoot
-    {
+	public class ImageSource
+	{
         /// <summary>
-        /// The version number.
+        /// Identity.
         /// </summary>
-        public string ver { get; set; }
+		public int Id {get; set;}
+		
+		/// <summary>
+		/// Source code of the shader.
+		/// </summary>
+		public string SourceCode {get;set;}
 
         /// <summary>
-        /// The informations of the shader.
+        /// Source for the image.
         /// </summary>
-        public ShaderInfoV1 info { get; set; }
-
-        /// <summary>
-        /// The render pass informations.
-        /// </summary>
-        public List<RenderPassV1> renderpass { get; set; }
+        public int Shader { get; set; }
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public ShaderRoot()
-        {
-        }
-    }
+        public ImageSource()
+		{
+		}
+	}
 }

@@ -19,7 +19,7 @@
 
 using System.Collections.Generic;
 
-namespace GLow_Screensaver.Windows.ShadertoyJson
+namespace GLowService.ShadertoyJson
 {
     /// <summary>
     /// Render pass informations.

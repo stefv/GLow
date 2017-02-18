@@ -17,6 +17,7 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
+using GLowService.Data;
 using System.ServiceProcess;
 using System.Timers;
 
@@ -93,7 +94,7 @@ namespace GLowService
         /// <param name="e">Argument for this event.</param>
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            _shaderDownloader.download();
+            _shaderDownloader.Download();
         }
     }
 }
