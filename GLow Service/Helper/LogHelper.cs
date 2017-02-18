@@ -24,7 +24,7 @@ namespace GLowService.Helper
     /// <summary>
     /// Logger to the event log.
     /// </summary>
-    public sealed class Log
+    public sealed class LogHelper
     {
         /// <summary>
         /// The source for the system log.
@@ -44,7 +44,7 @@ namespace GLowService.Helper
         /// <summary>
         /// Static constructor to initialize the logger.
         /// </summary>
-        static Log()
+        static LogHelper()
         {
             // Create the source if it doesn't exist
             if (!EventLog.SourceExists(EVENTLOG_SOURCE)) EventLog.CreateEventSource(EVENTLOG_SOURCE, LOG_NAME);
@@ -57,7 +57,7 @@ namespace GLowService.Helper
         /// <summary>
         /// Static calls only.
         /// </summary>
-        private Log() { }
+        private LogHelper() { }
 
         /// <summary>
         /// Write a message in the event log.

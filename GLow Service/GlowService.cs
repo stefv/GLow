@@ -18,12 +18,32 @@
 //
 
 using System.ServiceProcess;
-using System.Diagnostics;
+using System.Timers;
 
 namespace GLowService
 {
     public partial class GlowService : ServiceBase
     {
+        /// <summary>
+        /// Number of hours before to download the shaders.
+        /// </summary>
+        private const int HOURS_BEFORE_EVENT = 5;
+
+        /// <summary>
+        /// The timer.
+        /// </summary>
+        private Timer _timer;
+
+        /// <summary>
+        /// true if the service must stop.
+        /// </summary>
+        private bool _requiredStop = false;
+
+        /// <summary>
+        /// The service to download the shaders.
+        /// </summary>
+        private ShaderDownloader _shaderDownloader;
+
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -43,10 +63,19 @@ namespace GLowService
 #endif
 
             CreateDatabase();
+
+            _shaderDownloader = new ShaderDownloader();
+
+            _timer = new Timer(1000 * 3600 * HOURS_BEFORE_EVENT);
+            _timer.Elapsed += timer_Elapsed;
         }
 
+        /// <summary>
+        /// Stop the service.
+        /// </summary>
         protected override void OnStop()
         {
+            _requiredStop = true;
         }
 
         /// <summary>
@@ -55,6 +84,16 @@ namespace GLowService
         private void CreateDatabase()
         {
             Database.Instance.GetConnection();
+        }
+
+        /// <summary>
+        /// Download the shaders.
+        /// </summary>
+        /// <param name="sender">The object sending the event.</param>
+        /// <param name="e">Argument for this event.</param>
+        private void timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            _shaderDownloader.download();
         }
     }
 }
