@@ -29,6 +29,9 @@ using System.Net;
 
 namespace GLowService
 {
+    /// <summary>
+    /// Class to download the shaders from ShaderToy.
+    /// </summary>
     public class ShaderDownloader
     {
         #region Constants

@@ -23,13 +23,18 @@ using System.Timers;
 
 namespace GLowService
 {
+    /// <summary>
+    /// Service for GLow screensaver to download the shaders from ShaderToy.
+    /// </summary>
     public partial class GlowService : ServiceBase
     {
+        #region Constants
         /// <summary>
         /// Number of hours before to download the shaders.
         /// </summary>
         private const int HOURS_BEFORE_EVENT = 5;
-
+        #endregion
+        #region Fields
         /// <summary>
         /// The timer.
         /// </summary>
@@ -44,7 +49,9 @@ namespace GLowService
         /// The service to download the shaders.
         /// </summary>
         private ShaderDownloader _shaderDownloader;
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -52,6 +59,7 @@ namespace GLowService
         {
             InitializeComponent();
         }
+        #endregion
 
         /// <summary>
         /// Start the service.
