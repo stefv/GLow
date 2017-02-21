@@ -21,10 +21,10 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\svanp\Documents\GitHubVisualStudio\GLow\LICENSE
-OutputDir=C:\Users\svanp\Documents\GitHubVisualStudio\GLow\Inno setup
+LicenseFile=..\LICENSE
+OutputDir=.\
 OutputBaseFilename=GLow setup-{#MyAppVersion}
-SetupIconFile=C:\Users\svanp\Documents\GitHubVisualStudio\GLow\Images\glow.ico
+SetupIconFile=.\glow.ico
 Compression=lzma
 SolidCompression=yes
 [Run]
@@ -45,12 +45,13 @@ Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "{#MyAppURL}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 
 [Files]
-Source: "..\bin\Release\GLow.scr"; DestDir: "{app}"
-Source: "..\bin\Release\ICSharpCode.AvalonEdit.dll"; DestDir: "{app}"
-Source: "..\bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"
-Source: "..\bin\Release\OpenTK.dll"; DestDir: "{app}"
-Source: "..\bin\Release\OpenTK.GLControl.dll"; DestDir: "{app}"
-Source: "..\Lib\x86\sqlite3.dll"; DestDir: "{app}"
+;Source: "..\GLow Screensaver\bin\Debug\GLow.scr"; DestDir: "{app}"
+;Source: "..\GLow Screensaver\bin\Release\ICSharpCode.AvalonEdit.dll"; DestDir: "{app}"
+;Source: "..\GLow Screensaver\bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"
+;Source: "..\GLow Screensaver\bin\Release\OpenTK.dll"; DestDir: "{app}"
+;Source: "..\GLow Screensaver\bin\Release\OpenTK.GLControl.dll"; DestDir: "{app}"
+;Source: "..\GLow Screensaver\Lib\x86\sqlite3.dll"; DestDir: "{app}"
+Source: "..\GLow Service\Lib\x86\sqlite3.dll"; DestDir: "{app}"
 
 [Tasks]
 Name: "CheckDotNet"; Description: "Check installation .NET (4.0 client)"; Check: InitializeSetup
