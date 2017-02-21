@@ -18,6 +18,7 @@
 //
 
 using GLowService.Data;
+using GLowService.Helper;
 using GLowService.ShadertoyJson;
 using Newtonsoft.Json;
 using SQLite;
@@ -26,6 +27,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Resources;
 
 namespace GLowService
 {
@@ -40,18 +42,28 @@ namespace GLowService
         /// </summary>
         private const string SHADERTOY_JSON_URL = "https://www.shadertoy.com/api/v1/shaders";
         #endregion
+        #region Delegates
+        /// <summary>
+        /// Delegate to stop the download.
+        /// </summary>
+        /// <returns></returns>
+        public delegate bool IsStopRequired();
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Default constructor.
         /// </summary>
         public ShaderDownloader()
         {
         }
+        #endregion
 
         /// <summary>
         /// Download the new shaders.
         /// </summary>
-        public void Download()
+        /// <param name="isStopRequiredDelegate">The delegate to check if a stop request is required.</param>
+        public void Download(IsStopRequired isStopRequiredDelegate)
         {
             // Get the connection to the database before to retreive the data from Shadertoy
             SQLiteConnection db = Database.Instance.GetConnection();
@@ -59,6 +71,9 @@ namespace GLowService
             // Load the shader list
             List<string> shaderList = GetShadertoyList();
             if (shaderList == null) return;
+
+            LogHelper.Info(100, "Number of shaders found: " + shaderList.Count);
+            LogHelper.Info(100, "Starting update");
 
             db.BeginTransaction();
 
@@ -93,13 +108,19 @@ namespace GLowService
                         SourceCode = shadertoy.Shader.renderpass[0].code
                     };
                     db.Insert(imageSource);
+
+                    if (isStopRequiredDelegate()) break;
+
+                    if (index++ % 50 == 0) LogHelper.Info(100, "Downloaded " + index);
                 }
 
-                _worker.ReportProgress(++index, new WorkerData() { NbShaders = shaderList.Count, ShaderInfo = shader });
-                if (_worker.CancellationPending) break;
+                //_worker.ReportProgress(++index, new WorkerData() { NbShaders = shaderList.Count, ShaderInfo = shader });
+                //if (_worker.CancellationPending) break;
             }
 
             db.Commit();
+
+            LogHelper.Info(100, "Update done");
         }
 
 

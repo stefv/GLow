@@ -19,6 +19,7 @@
 
 using GLowService.Data;
 using System.ServiceProcess;
+using System.Threading;
 using System.Timers;
 
 namespace GLowService
@@ -38,7 +39,7 @@ namespace GLowService
         /// <summary>
         /// The timer.
         /// </summary>
-        private Timer _timer;
+        private System.Timers.Timer _timer;
 
         /// <summary>
         /// true if the service must stop.
@@ -68,14 +69,16 @@ namespace GLowService
         protected override void OnStart(string[] args)
         {
 #if DEBUG
-            System.Diagnostics.Debugger.Launch();
+            //System.Diagnostics.Debugger.Launch();
 #endif
 
             CreateDatabase();
 
             _shaderDownloader = new ShaderDownloader();
 
-            _timer = new Timer(1000 * 3600 * HOURS_BEFORE_EVENT);
+            ThreadPool.QueueUserWorkItem((_) => _shaderDownloader.Download(IsStopRequired));
+
+            _timer = new System.Timers.Timer(1000 * 3600 * HOURS_BEFORE_EVENT);
             _timer.Elapsed += timer_Elapsed;
         }
 
@@ -102,7 +105,12 @@ namespace GLowService
         /// <param name="e">Argument for this event.</param>
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            _shaderDownloader.Download();
+            _shaderDownloader.Download(IsStopRequired);
+        }
+
+        private bool IsStopRequired()
+        {
+            return _requiredStop;
         }
     }
 }

@@ -98,7 +98,11 @@
     <Compile Include="Data\SQLite.cs" />
     <Compile Include="Data\SQLiteAsync.cs" />
     <Compile Include="Helper\LogHelper.cs" />
-    <Compile Include="PrivateData.Designer.cs" />
+    <Compile Include="PrivateData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrivateData.resx</DependentUpon>
+    </Compile>
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -141,7 +145,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PrivateData.resx" />
+    <EmbeddedResource Include="PrivateData.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PrivateData.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
