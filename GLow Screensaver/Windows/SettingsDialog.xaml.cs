@@ -25,7 +25,6 @@ using Microsoft.Win32;
 using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -232,7 +231,8 @@ namespace GLow_Screensaver
                         e.Accepted = true;
                         return;
                     }
-                } else
+                }
+                else
                 {
                     e.Accepted = true;
                     return;
@@ -255,9 +255,9 @@ namespace GLow_Screensaver
         /// <param name="e">Argument for this event.</param>
         private void buttonUpdate_Click(object sender, RoutedEventArgs e)
         {
-            ShaderDownloadDialog dialog = new ShaderDownloadDialog() { Owner = this };
-            bool? result = dialog.ShowDialog();
-            if (result.HasValue && result.Value) RefreshList();
+            //ShaderDownloadDialog dialog = new ShaderDownloadDialog() { Owner = this };
+            //bool? result = dialog.ShowDialog();
+            //if (result.HasValue && result.Value) RefreshList();
         }
 
         /// <summary>
