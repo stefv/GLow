@@ -17,10 +17,10 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-using GLow_Screensaver.Data;
+using GLow_Screensaver.Services;
 using GLow_Screensaver.Utils;
 using GLow_Screensaver.Windows;
-using GLowScreensaver;
+using GLowCommon.Data;
 using Microsoft.Win32;
 using SQLite;
 using System;
@@ -70,7 +70,7 @@ namespace GLow_Screensaver
             public void Execute(object parameter)
             {
                 SettingsDialog dialog = (SettingsDialog)parameter;
-                if ((dialog.listBox.SelectedItem != null) && (dialog.listBox.SelectedItem is Shader))
+                /*if ((dialog.listBox.SelectedItem != null) && (dialog.listBox.SelectedItem is Shader))
                 {
                     SQLiteConnection db = Database.Instance.GetConnection();
                     Shader shader = (Shader)dialog.listBox.SelectedItem;
@@ -79,7 +79,7 @@ namespace GLow_Screensaver
                     db.BeginTransaction();
                     db.Update(shader);
                     db.Commit();
-                }
+                }*/
             }
         }
         #endregion
@@ -108,10 +108,10 @@ namespace GLow_Screensaver
             public void Execute(object parameter)
             {
                 SettingsDialog dialog = (SettingsDialog)parameter;
-                if ((dialog.listBox.SelectedItem != null) && (dialog.listBox.SelectedItem is Shader))
+                if ((dialog.listBox.SelectedItem != null) && (dialog.listBox.SelectedItem is ShaderModel))
                 {
                     // Get the source code
-                    Shader shader = (Shader)dialog.listBox.SelectedItem;
+                    ShaderModel shader = (ShaderModel)dialog.listBox.SelectedItem;
                     if (shader == null) return;
                     dialog.ShowSourceCode(shader);
                 }
@@ -122,7 +122,7 @@ namespace GLow_Screensaver
         /// <summary>
         /// Return the list of shaders.
         /// </summary>
-        public ObservableHashSet<Shader> ShaderList
+        public ObservableHashSet<ShaderModel> ShaderList
         {
             get;
             private set;
@@ -163,7 +163,7 @@ namespace GLow_Screensaver
         /// <param name="e">Argument for this event.</param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ShaderList = new ObservableHashSet<Shader>();
+            ShaderList = new ObservableHashSet<ShaderModel>();
 
             _filteredList = new CollectionViewSource();
             _filteredList.Source = ShaderList;
@@ -176,7 +176,7 @@ namespace GLow_Screensaver
             if (folder.GetValue("ShaderId") != null)
             {
                 int shaderId = (int)folder.GetValue("ShaderId");
-                foreach (Shader shader in ShaderList)
+                foreach (ShaderModel shader in ShaderList)
                 {
                     if (shader.Id == shaderId)
                     {
@@ -194,17 +194,18 @@ namespace GLow_Screensaver
         /// </summary>
         private void RefreshList()
         {
-            SQLiteConnection db = Database.Instance.GetConnection();
-            IEnumerator<Shader> shaders = (from s in db.Table<Shader>() select s).GetEnumerator();
-            while (shaders.MoveNext())
+            Dictionary<string, string> shaders = ShaderService.GetShadersID();
+            /*foreach (ShaderModel shader in shaders)
             {
-                if (!ShaderList.Contains(shaders.Current))
+                if (!ShaderList.Contains(shader))
                 {
                     // Check if the shader is using unimplemented features to filter
-                    ImageSource source = (from s in db.Table<ImageSource>() where s.Id == shaders.Current.Id select s).FirstOrDefault();
-                    if (!source.SourceCode.Contains("iChannel") && !source.SourceCode.Contains("iSampleRate")) ShaderList.Add(shaders.Current);
+                    //ImageSource source = (from s in db.Table<ImageSource>() where s.Id == shaders.Current.Id select s).FirstOrDefault();
+                    //if (!source.SourceCode.Contains("iChannel") && !source.SourceCode.Contains("iSampleRate")) ShaderList.Add(shaders.Current);
+
+                    ShaderList.Add(shader);
                 }
-            }
+            }*/
         }
         #endregion
         #region Filter the list
@@ -215,9 +216,9 @@ namespace GLow_Screensaver
         /// <param name="e"></param>
         private void FilteredList_Filter(object sender, FilterEventArgs e)
         {
-            if (e.Item is Shader)
+            if (e.Item is ShaderModel)
             {
-                Shader shader = (Shader)e.Item;
+                ShaderModel shader = (ShaderModel)e.Item;
                 string searchText = textBoxSearch.Text.ToLower();
                 if (searchText.Trim() != "")
                 {
@@ -269,7 +270,7 @@ namespace GLow_Screensaver
         {
             if (listBox.SelectedItem != null)
             {
-                Shader shader = (Shader)listBox.SelectedItem;
+                ShaderModel shader = (ShaderModel)listBox.SelectedItem;
                 RegistryKey folder = Registry.CurrentUser.CreateSubKey(@"Software\GLow Screensaver\");
                 folder.SetValue("ShaderId", shader.Id);
             }
@@ -324,7 +325,7 @@ namespace GLow_Screensaver
         /// <param name="e">Argument for tis event.</param>
         private void listBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            SQLiteConnection db = Database.Instance.GetConnection();
+            /*SQLiteConnection db = Database.Instance.GetConnection();
             Shader shader = (Shader)listBox.SelectedItem;
             if (shader != null)
             {
@@ -341,7 +342,7 @@ namespace GLow_Screensaver
                 // Disable the buttons
                 buttonDuplicate.IsEnabled = false;
                 buttonViewSourceCode.IsEnabled = false;
-            }
+            }*/
         }
 
         /// <summary>
@@ -351,7 +352,7 @@ namespace GLow_Screensaver
         /// <param name="e">Argument for this event.</param>
         private void ContextMenu_ContextMenuOpening(object sender, System.Windows.Controls.ContextMenuEventArgs e)
         {
-            Shader shader = (Shader)listBox.SelectedItem;
+            ShaderModel shader = (ShaderModel)listBox.SelectedItem;
             if (shader != null)
             {
                 if (shader.Favorite)
@@ -383,25 +384,25 @@ namespace GLow_Screensaver
         private void buttonViewSourceCode_Click(object sender, RoutedEventArgs e)
         {
             // Get the source code
-            Shader shader = (Shader)listBox.SelectedItem;
+            /*Shader shader = (Shader)listBox.SelectedItem;
             if (shader == null) return;
-            ShowSourceCode(shader);
+            ShowSourceCode(shader);*/
         }
 
         /// <summary>
         /// Show the source code of the given Shader.
         /// </summary>
         /// <param name="shader">The shader with the source code.</param>
-        private void ShowSourceCode(Shader shader)
+        private void ShowSourceCode(ShaderModel shader)
         {
             // Retrieve the source code
-            SQLiteConnection db = Database.Instance.GetConnection();
+            /*SQLiteConnection db = Database.Instance.GetConnection();
             ImageSource source = (from s in db.Table<ImageSource>() where s.Id == shader.Id select s).FirstOrDefault();
 
             ShaderEditWindow editWindow = new ShaderEditWindow() { Owner = this };
             editWindow.Code = source.SourceCode;
             editWindow.IsReadOnly = true;
-            editWindow.ShowDialog();
+            editWindow.ShowDialog();*/
         }
         #endregion
     }

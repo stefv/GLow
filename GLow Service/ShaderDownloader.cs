@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Resources;
 
 namespace GLowService
 {
@@ -128,7 +127,7 @@ namespace GLowService
         /// Download the list of shaders from Shadertoy.
         /// </summary>
         /// <returns>The liste of shaders.</returns>
-        public List<string> GetShadertoyList()
+        private List<string> GetShadertoyList()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(SHADERTOY_JSON_URL + "?key=" + PrivateData.ShaderToyKey);
             request.Method = "POST";
@@ -151,7 +150,7 @@ namespace GLowService
         /// </summary>
         /// <param name="id">The id of the sahder to download.</param>
         /// <returns>The shader downloaded.</returns>
-        public ShaderV1 GetShadertoyShader(string id)
+        private ShaderV1 GetShadertoyShader(string id)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(SHADERTOY_JSON_URL + "/" + id + "?key=" + PrivateData.ShaderToyKey);
             request.Method = "POST";

@@ -49,18 +49,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <!--<Style x:Key="ListBoxContainerStyle" TargetType="ListBoxItem">
-            <Setter Property="Background" Value="Red" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border BorderBrush="Gray" BorderThickness="1">
-                            <ContentControl />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>-->
     </local:WindowBase.Resources>
 
     <Grid>
@@ -164,18 +152,6 @@
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                    <!--ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="{Binding Name}" FontSize="15" FontWeight="Bold" />
-                        <TextBlock Grid.Row="1" Text="{Binding Author,Converter={StaticResource AutoConverter}}" FontStyle="Italic" />
-                    </Grid>
-                </DataTemplate>
-            </-->
                 </ListBox>
             </Grid>
 
@@ -187,7 +163,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Preview screen -->
-                <ctrl:PreviewControl Grid.Row="0" x:Name="preview" Height="275" Width="344"/>
+                <!--<ctrl:PreviewControl Grid.Row="0" x:Name="preview" Height="275" Width="344"/>-->
 
                 <!-- Description -->
                 <Border Grid.Row="1" Margin="0,10,0,0" BorderBrush="Gray" Padding="5" CornerRadius="5" BorderThickness="1" Background="LightGray">

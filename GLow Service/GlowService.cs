@@ -17,7 +17,11 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
+using GLowCommon.Services;
 using GLowService.Data;
+using GLowService.Services;
+using System;
+using System.ServiceModel;
 using System.ServiceProcess;
 using System.Threading;
 using System.Timers;
@@ -50,6 +54,11 @@ namespace GLowService
         /// The service to download the shaders.
         /// </summary>
         private ShaderDownloader _shaderDownloader;
+
+        /// <summary>
+        /// The host for the service service.
+        /// </summary>
+        private ServiceHost serviceHost;
         #endregion
 
         #region Constructors
@@ -80,6 +89,19 @@ namespace GLowService
 
             _timer = new System.Timers.Timer(1000 * 3600 * HOURS_BEFORE_EVENT);
             _timer.Elapsed += timer_Elapsed;
+
+            serviceHost = new ServiceHost(typeof(ShaderService), new Uri[] {
+                //new Uri("http://localhost:8000"),
+                new Uri("net.pipe://localhost")
+            });
+            if (serviceHost != null)
+            {
+                NetNamedPipeBinding binding = new NetNamedPipeBinding();
+
+                //serviceHost.AddServiceEndpoint(typeof(IShaderService), new BasicHttpBinding(), "Reverse");
+                serviceHost.AddServiceEndpoint(typeof(IShaderService), binding, IShaderService.SERVICE_NAME);
+                serviceHost.Open();
+            }
         }
 
         /// <summary>
@@ -87,6 +109,7 @@ namespace GLowService
         /// </summary>
         protected override void OnStop()
         {
+            if (serviceHost != null) serviceHost.Close();
             _requiredStop = true;
         }
 

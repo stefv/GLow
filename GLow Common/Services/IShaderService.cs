@@ -17,41 +17,35 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-using SQLite;
+using GLowCommon.Data;
+using System.Collections.Generic;
+using System.ServiceModel;
 
-namespace GLow_Screensaver.Data
+namespace GLowCommon.Services
 {
     /// <summary>
-    /// Source for the image.
+    /// Service interface to access to the database.
     /// </summary>
-    [Table("imagesource")]
-	public class ImageSource
-	{
+    [ServiceContract]
+    public abstract class IShaderService
+    {
         /// <summary>
-        /// Identity.
+        /// Name of the service.
         /// </summary>
-        [AutoIncrement]
-        [PrimaryKey]
-        [Column("id")]
-		public int Id {get; set;}
-		
-		/// <summary>
-		/// Source code of the shader.
-		/// </summary>
-		[Column("sourceImage")]
-		public string SourceCode {get;set;}
+        public const string SERVICE_NAME = "PipeGlowService";
 
         /// <summary>
-        /// Source for the image.
+        /// Get the shader's ID and their name.
         /// </summary>
-        [Column("shader")]
-        public int Shader { get; set; }
+        /// <returns>The shader's ID and their name.</returns>
+        [OperationContract]
+        public abstract Dictionary<string, string> GetShadersId();
 
         /// <summary>
-        /// Default constructor.
+        /// Returns the list of shaders from ShaderToy.
         /// </summary>
-        public ImageSource()
-		{
-		}
-	}
+        /// <returns>The list.</returns>
+        [OperationContract]
+        public abstract List<ShaderModel> GetShaders();
+    }
 }

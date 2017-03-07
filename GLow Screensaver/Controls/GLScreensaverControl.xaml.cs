@@ -17,10 +17,8 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-using GLowScreensaver;
 using Microsoft.Win32;
 using OpenTK.Graphics.OpenGL;
-using SQLite;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -173,13 +171,13 @@ namespace GLow_Screensaver.Controls
         public void InitializeFragmentShader()
         {
             RegistryKey folder = Registry.CurrentUser.CreateSubKey(@"Software\GLow Screensaver\");
-            if (folder.GetValue("ShaderId") != null)
+            /*if (folder.GetValue("ShaderId") != null)
             {
                 int shaderId = (int)folder.GetValue("ShaderId");
                 SQLiteConnection db = Database.Instance.GetConnection();
                 GLow_Screensaver.Data.ImageSource source = (from s in db.Table<GLow_Screensaver.Data.ImageSource>() where s.Id == shaderId select s).FirstOrDefault();
                 if (source != null) InitializeFragmentShader(source.SourceCode);
-            }
+            }*/
         }
 
         /// <summary>

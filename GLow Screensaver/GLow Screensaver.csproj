@@ -160,6 +160,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -210,11 +211,10 @@
     <Compile Include="Controls\PreviewControl.xaml.cs">
       <DependentUpon>PreviewControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\ImageSource.cs" />
-    <Compile Include="Data\Shader.cs" />
     <Compile Include="PrivateData.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\WPFAssemblyInfo.cs" />
+    <Compile Include="Services\ShaderService.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="Utils\ObservableHashSet.cs" />
@@ -294,7 +294,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="Properties\app.manifest" />
-    <Compile Include="Data\Database.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -334,7 +333,12 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GLow common\GLow Common.csproj">
+      <Project>{827f1d9a-9ad6-4af0-b2bc-11534122f003}</Project>
+      <Name>GLow Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if '$(PROCESSOR_ARCHITECTURE)'=='AMD64' (xcopy /y "$(ProjectDir)Lib\x64\sqlite3.dll" ".\") 
