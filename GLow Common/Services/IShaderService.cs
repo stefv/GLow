@@ -27,25 +27,38 @@ namespace GLowCommon.Services
     /// Service interface to access to the database.
     /// </summary>
     [ServiceContract]
-    public abstract class IShaderService
+    public interface IShaderService
     {
         /// <summary>
-        /// Name of the service.
+        /// Return the number of shaders.
         /// </summary>
-        public const string SERVICE_NAME = "PipeGlowService";
+        /// <returns>The number of shaders.</returns>
+        [OperationContract]
+        int CountShader();
 
         /// <summary>
         /// Get the shader's ID and their name.
         /// </summary>
         /// <returns>The shader's ID and their name.</returns>
         [OperationContract]
-        public abstract Dictionary<string, string> GetShadersId();
+        Dictionary<string, string> GetShadersId();
 
         /// <summary>
         /// Returns the list of shaders from ShaderToy.
         /// </summary>
         /// <returns>The list.</returns>
         [OperationContract]
-        public abstract List<ShaderModel> GetShaders();
+        List<ShaderModel> GetShaders();
+    }
+
+    /// <summary>
+    /// Class of constants for the service.
+    /// </summary>
+    public sealed class ShaderServiceConst
+    {
+        /// <summary>
+        /// Name of the service.
+        /// </summary>
+        public const string SERVICE_NAME = "PipeGlowService";
     }
 }

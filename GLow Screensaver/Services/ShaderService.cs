@@ -30,13 +30,27 @@ namespace GLow_Screensaver.Services
     public static class ShaderService
     {
         /// <summary>
+        /// Return the number of shaders.
+        /// </summary>
+        /// <returns>The number of shaders.</returns>
+        public static int CountShaders()
+        {
+            ChannelFactory<IShaderService> pipeFactory =
+                new ChannelFactory<IShaderService>(new NetNamedPipeBinding(), new EndpointAddress("net.pipe://localhost/" + ShaderServiceConst.SERVICE_NAME));
+
+            IShaderService pipeProxy = pipeFactory.CreateChannel();
+
+            return pipeProxy.CountShader();
+        }
+
+        /// <summary>
         /// Return the list of shaders.
         /// </summary>
         /// <returns>The list of shaders.</returns>
         public static List<ShaderModel> GetShaders()
         {
             ChannelFactory<IShaderService> pipeFactory =
-                new ChannelFactory<IShaderService>(new NetNamedPipeBinding(), new EndpointAddress("net.pipe://localhost/" + IShaderService.SERVICE_NAME));
+                new ChannelFactory<IShaderService>(new NetNamedPipeBinding(), new EndpointAddress("net.pipe://localhost/" + ShaderServiceConst.SERVICE_NAME));
 
             IShaderService pipeProxy = pipeFactory.CreateChannel();
 
@@ -46,7 +60,7 @@ namespace GLow_Screensaver.Services
         public static Dictionary<string, string> GetShadersID()
         {
             ChannelFactory<IShaderService> pipeFactory =
-                new ChannelFactory<IShaderService>(new NetNamedPipeBinding(), new EndpointAddress("net.pipe://localhost/" + IShaderService.SERVICE_NAME));
+                new ChannelFactory<IShaderService>(new NetNamedPipeBinding(), new EndpointAddress("net.pipe://localhost/" + ShaderServiceConst.SERVICE_NAME));
 
             IShaderService pipeProxy = pipeFactory.CreateChannel();
 

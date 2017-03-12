@@ -22,9 +22,7 @@ using GLow_Screensaver.Utils;
 using GLow_Screensaver.Windows;
 using GLowCommon.Data;
 using Microsoft.Win32;
-using SQLite;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -194,7 +192,8 @@ namespace GLow_Screensaver
         /// </summary>
         private void RefreshList()
         {
-            Dictionary<string, string> shaders = ShaderService.GetShadersID();
+            //Dictionary<string, string> shaders = ShaderService.GetShadersID();
+            int count = ShaderService.CountShaders();
             /*foreach (ShaderModel shader in shaders)
             {
                 if (!ShaderList.Contains(shader))

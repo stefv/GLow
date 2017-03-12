@@ -22,6 +22,7 @@ using GLowCommon.Services;
 using GLowService.Data;
 using SQLite;
 using System.Collections.Generic;
+using System;
 
 namespace GLowService.Services
 {
@@ -31,10 +32,21 @@ namespace GLowService.Services
     public class ShaderService : IShaderService
     {
         /// <summary>
+        /// Returns the number of shaders.
+        /// </summary>
+        /// <returns>The nulmber of shaders.</returns>
+        public int CountShader()
+        {
+            SQLiteConnection db = Database.Instance.GetConnection();
+            int count = (from s in db.Table<Shader>() select s).Count();
+            return count;
+        }
+
+        /// <summary>
         /// Returns the list of shaders.
         /// </summary>
         /// <returns>The list.</returns>
-        public override List<ShaderModel> GetShaders()
+        public List<ShaderModel> GetShaders()
         {
             List<ShaderModel> result = new List<ShaderModel>();
             SQLiteConnection db = Database.Instance.GetConnection();
@@ -61,7 +73,7 @@ namespace GLowService.Services
         /// Returns the shader's ID and their name.
         /// </summary>
         /// <returns>The shader's ID and their name.</returns>
-        public override Dictionary<string, string> GetShadersId()
+        public Dictionary<string, string> GetShadersId()
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
             SQLiteConnection db = Database.Instance.GetConnection();

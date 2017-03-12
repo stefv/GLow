@@ -91,15 +91,13 @@ namespace GLowService
             _timer.Elapsed += timer_Elapsed;
 
             serviceHost = new ServiceHost(typeof(ShaderService), new Uri[] {
-                //new Uri("http://localhost:8000"),
                 new Uri("net.pipe://localhost")
             });
             if (serviceHost != null)
             {
                 NetNamedPipeBinding binding = new NetNamedPipeBinding();
 
-                //serviceHost.AddServiceEndpoint(typeof(IShaderService), new BasicHttpBinding(), "Reverse");
-                serviceHost.AddServiceEndpoint(typeof(IShaderService), binding, IShaderService.SERVICE_NAME);
+                serviceHost.AddServiceEndpoint(typeof(IShaderService), binding, ShaderServiceConst.SERVICE_NAME);
                 serviceHost.Open();
             }
         }
