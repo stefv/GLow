@@ -17,10 +17,10 @@ rem Build the x64 version
 if ERRORLEVEL 1 exit /b 1
 
 rem Build the x86 install
-"C:\Program Files (x86)\Inno Setup 5\iscc.exe" GLow.iss /DArch=x86
+"C:\Program Files (x86)\Inno Setup 5\iscc.exe" GLow.iss /DArch=x86 /DInstallArch=
 
 rem Build the x64 install
-"C:\Program Files (x86)\Inno Setup 5\iscc.exe" GLow.iss /DArch=x64
+"C:\Program Files (x86)\Inno Setup 5\iscc.exe" GLow.iss /DArch=x64 /DInstallArch=x64
 
 exit /b 0
 
