@@ -2,7 +2,6 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "GLow"
-#define MyAppVersion "1.0"
 #define MyAppPublisher "Stéphane VANPOPERYNGHE"
 #define MyAppURL "https://github.com/stefv/GLow"
 
@@ -12,8 +11,8 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{BBF9A906-AA20-412F-8BD8-AB244C35BE41}
 AppName={#MyAppName}
-AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVersion={#Version}
+;AppVerName={#MyAppName} {#Version}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -23,7 +22,7 @@ DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\LICENSE
 OutputDir=.\
-OutputBaseFilename=GLow Setup-{#MyAppVersion}.{#Arch}
+OutputBaseFilename=GLow Setup-{#Version}-{#Arch}
 SetupIconFile=.\glow.ico
 Compression=lzma
 SolidCompression=yes
@@ -53,12 +52,6 @@ Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "{#MyAppURL}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 
 [Files]
-;Source: "..\GLow Screensaver\bin\Debug\GLow.scr"; DestDir: "{app}"
-;Source: "..\GLow Screensaver\bin\Release\ICSharpCode.AvalonEdit.dll"; DestDir: "{app}"
-;Source: "..\GLow Screensaver\bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"
-;Source: "..\GLow Screensaver\bin\Release\OpenTK.dll"; DestDir: "{app}"
-;Source: "..\GLow Screensaver\bin\Release\OpenTK.GLControl.dll"; DestDir: "{app}"
-;Source: "..\GLow Screensaver\Lib\x86\sqlite3.dll"; DestDir: "{app}"
 Source: ".\bin\{#Arch}\Release\GLowService.exe"; DestDir: "{app}"
 Source: ".\bin\{#Arch}\Release\sqlite3.dll"; DestDir: "{app}"
 Source: ".\bin\{#Arch}\Release\EntityFramework.dll"; DestDir: "{app}"
