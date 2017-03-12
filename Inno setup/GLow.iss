@@ -35,7 +35,11 @@ ArchitecturesInstallIn64BitMode={#InstallArch}
 ; installation to run on all architectures (including Itanium,
 ; since it's capable of running 32-bit code too).
 [Run]
+Filename: {sys}\sc.exe; Parameters: "create ""Glow Service"" start=auto binPath=""{app}\GLowService.exe""" ; Flags: runhidden
 
+[UninstallRun]
+Filename: {sys}\sc.exe; Parameters: "stop ""Glow Service""" ; Flags: runhidden
+Filename: {sys}\sc.exe; Parameters: "delete ""Glow Service""" ; Flags: runhidden
 ;------------------------------------------------------------------------------
 ; Open the screensaver Properties dialog with newly installed screensaver
 ; selected.

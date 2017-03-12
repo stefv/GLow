@@ -67,10 +67,10 @@ namespace GLowService.Data
         public SQLiteConnection GetConnection()
         {
             // Ceate the connection
-#if RELEASE
-            string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-#else
+#if DEBUG
             string appdata = @"C:\Temp";
+#else
+            string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #endif
             string appdataPath = Path.Combine(new[] { appdata, DBDirectory, DBConnectionString });
             SQLiteConnection connection = new SQLiteConnection(appdataPath);

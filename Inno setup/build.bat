@@ -27,13 +27,15 @@ rem Build the x64 install
 
 exit /b 0
 
+:BuildError
+echo Build error.
+exit /b 1
+
 :NotSet
 echo The VSINSTALLDIR environment variable is not set.
 echo Did you start the Visual Studio command prompt ?
-
 exit /b 1
 
 :VersionMissing
 echo The version number is missing.
-
 exit /b 1
