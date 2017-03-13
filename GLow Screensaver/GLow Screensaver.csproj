@@ -125,10 +125,6 @@
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="OpenTK">
       <HintPath>..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
       <Private>True</Private>
@@ -207,12 +203,9 @@
     <Compile Include="Controls\PreviewControl.xaml.cs">
       <DependentUpon>PreviewControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PrivateData.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\WPFAssemblyInfo.cs" />
     <Compile Include="Services\ShaderService.cs" />
-    <Compile Include="SQLite.cs" />
-    <Compile Include="SQLiteAsync.cs" />
     <Compile Include="Utils\ObservableHashSet.cs" />
     <Compile Include="Utils\User32.cs" />
     <Compile Include="Utils\WindowStyles.cs" />

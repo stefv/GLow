@@ -354,7 +354,7 @@ namespace GLow_Screensaver
             ShaderModel shader = (ShaderModel)listBox.SelectedItem;
             if (shader != null)
             {
-                if (shader.Favorite)
+                /*if (shader.Favorite)
                 {
                     addFavoriteMenu.Visibility = Visibility.Collapsed;
                     removeFavoriteMenu.Visibility = Visibility.Visible;
@@ -363,7 +363,7 @@ namespace GLow_Screensaver
                 {
                     addFavoriteMenu.Visibility = Visibility.Visible;
                     removeFavoriteMenu.Visibility = Visibility.Collapsed;
-                }
+                }*/
 
                 sourceCodeMenu.IsEnabled = true;
             }
