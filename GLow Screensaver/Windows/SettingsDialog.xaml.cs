@@ -26,6 +26,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -193,7 +194,16 @@ namespace GLow_Screensaver
         private void RefreshList()
         {
             //Dictionary<string, string> shaders = ShaderService.GetShadersID();
-            int count = ShaderService.CountShaders();
+            int count = 0;
+            try
+            {
+                count = ShaderService.CountShaders();
+            }
+            catch (FaultException ex)
+            {
+                Debug.WriteLine("Service exception: " + ex.Message);
+                return;
+            }
             /*foreach (ShaderModel shader in shaders)
             {
                 if (!ShaderList.Contains(shader))
@@ -205,6 +215,7 @@ namespace GLow_Screensaver
                     ShaderList.Add(shader);
                 }
             }*/
+            Debug.WriteLine("Shaders found: " + count);
         }
         #endregion
         #region Filter the list
