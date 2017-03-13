@@ -71,6 +71,7 @@ namespace GLowService.Data
             string appdata = @"C:\Temp";
 #else
             string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(Path.Combine(new[] { appdata, DBDirectory }));
 #endif
             string appdataPath = Path.Combine(new[] { appdata, DBDirectory, DBConnectionString });
             SQLiteConnection connection = new SQLiteConnection(appdataPath);

@@ -35,11 +35,12 @@ ArchitecturesInstallIn64BitMode={#InstallArch}
 ; installation to run on all architectures (including Itanium,
 ; since it's capable of running 32-bit code too).
 [Run]
-Filename: {sys}\sc.exe; Parameters: "create ""Glow Service"" start=auto binPath=""{app}\GLowService.exe""" ; Flags: runhidden
+Filename: {sys}\sc.exe; Parameters: "create ""Glow"" start=auto binPath=""{app}\GLowService.exe""" ; Flags: runhidden
+Filename: {sys}\sc.exe; Parameters: "description ""Glow"" ""{cm:ServiceDescription}""" ; Flags: runhidden
 
 [UninstallRun]
-Filename: {sys}\sc.exe; Parameters: "stop ""Glow Service""" ; Flags: runhidden
-Filename: {sys}\sc.exe; Parameters: "delete ""Glow Service""" ; Flags: runhidden
+Filename: {sys}\sc.exe; Parameters: "stop ""Glow""" ; Flags: runhidden
+Filename: {sys}\sc.exe; Parameters: "delete ""Glow""" ; Flags: runhidden
 ;------------------------------------------------------------------------------
 ; Open the screensaver Properties dialog with newly installed screensaver
 ; selected.
@@ -50,6 +51,12 @@ Filename: {sys}\sc.exe; Parameters: "delete ""Glow Service""" ; Flags: runhidden
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
+
+[CustomMessages]
+ServiceDescription=Service to download shaders for GLow screensaver.
+french.ServiceDescription=Service pour télécharger des shaders pour GLow screensaver.
+CheckDotNet=Check installation .NET
+french.CheckDotNet=Vérifier l'installation de .NET
 
 [Icons]
 Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "{#MyAppURL}"
@@ -68,7 +75,7 @@ Source: ".\bin\{#Arch}\Release\System.Data.SQLite.Linq.dll"; DestDir: "{app}"
 Source: ".\bin\{#Arch}\Release\{#Arch}\SQLite.Interop.dll"; DestDir: "{app}"
 
 [Tasks]
-Name: "CheckDotNet"; Description: "Check installation .NET (4.5.2)"; Check: InitializeSetup
+Name: "CheckDotNet"; Description: "{cm:CheckDotNet} (4.5.2)"; Check: InitializeSetup
 
 [UninstallDelete]
 ;Type: files; Name: "{userappdata}\Roaming\GLow_Screensaver\GLow Screensaver\GLow.sqlite"
