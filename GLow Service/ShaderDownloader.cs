@@ -94,7 +94,6 @@ namespace GLowService
                         Description = shadertoy.Shader.info.description,
                         Author = shadertoy.Shader.info.username,
                         ReadOnly = true,
-                        Favorite = false,
                         Type = "GLSL",
                         LastUpdate = DateTime.Now
                     };

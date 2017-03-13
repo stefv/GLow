@@ -71,6 +71,7 @@ namespace GLowService
         }
         #endregion
 
+        #region Lifecycle methods
         /// <summary>
         /// Start the service.
         /// </summary>
@@ -110,6 +111,7 @@ namespace GLowService
             if (serviceHost != null) serviceHost.Close();
             _requiredStop = true;
         }
+        #endregion
 
         /// <summary>
         /// Create the database if it doesn't exist.

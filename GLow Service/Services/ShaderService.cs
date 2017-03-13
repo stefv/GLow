@@ -57,7 +57,6 @@ namespace GLowService.Services
                 ShaderModel targetShader = new ShaderModel();
                 targetShader.Author = sourceShader.Author;
                 targetShader.Description = sourceShader.Description;
-                targetShader.Favorite = sourceShader.Favorite;
                 targetShader.Id = sourceShader.Id;
                 targetShader.LastUpdate = sourceShader.LastUpdate;
                 targetShader.Name = sourceShader.Name;

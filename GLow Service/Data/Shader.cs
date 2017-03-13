@@ -133,25 +133,6 @@ namespace GLowService.Data
         public bool ReadOnly { get; set; }
 
         /// <summary>
-        /// true if it's a favorite.
-        /// </summary>
-        [Column("favorite")]
-        public bool Favorite
-        {
-            get { return _favorite; }
-            set
-            {
-                if (_favorite != value)
-                {
-                    _favorite = value;
-                    RaisePropertyChanged("Favorite");
-                }
-            }
-        }
-
-        private bool _favorite;
-
-        /// <summary>
         /// Default constructor.
         /// </summary>
         public Shader()
@@ -170,7 +151,6 @@ namespace GLowService.Data
             Author = src.Author;
             LastUpdate = src.LastUpdate;
             ReadOnly = src.ReadOnly;
-            Favorite = src.Favorite;
         }
 
         /// <summary>
