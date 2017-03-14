@@ -23,6 +23,7 @@ using GLow_Screensaver.Windows;
 using GLowCommon.Data;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -198,6 +199,7 @@ namespace GLow_Screensaver
             try
             {
                 count = ShaderService.CountShaders();
+                List<ShaderModel> shaders = ShaderService.GetShaders();
             }
             catch (FaultException ex)
             {
