@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Reflection;
 
 namespace GLowService
 {
@@ -67,14 +68,14 @@ namespace GLowService
             // Get the connection to the database before to retreive the data from Shadertoy
             SQLiteConnection db = Database.Instance.GetConnection();
 
+            LogHelper.Info(100, "Build date: " + GetLinkerTime(Assembly.GetAssembly(typeof(ShaderDownloader))));
+
             // Load the shader list
             List<string> shaderList = GetShadertoyList();
             if (shaderList == null) return;
 
             LogHelper.Info(100, "Number of shaders found: " + shaderList.Count);
             LogHelper.Info(100, "Starting update");
-
-            db.BeginTransaction();
 
             // Load the informations of each shader
             int index = 0;
@@ -97,6 +98,7 @@ namespace GLowService
                         Type = "GLSL",
                         LastUpdate = DateTime.Now
                     };
+                    db.BeginTransaction();
                     db.Insert(shader);
 
                     // Source garde le source
@@ -106,6 +108,7 @@ namespace GLowService
                         SourceCode = shadertoy.Shader.renderpass[0].code
                     };
                     db.Insert(imageSource);
+                    db.Commit();
 
                     if (isStopRequiredDelegate()) break;
 
@@ -116,11 +119,31 @@ namespace GLowService
                 //if (_worker.CancellationPending) break;
             }
 
-            db.Commit();
-
             LogHelper.Info(100, "Update done");
         }
 
+        private DateTime GetLinkerTime(Assembly assembly, TimeZoneInfo target = null)
+        {
+            var filePath = assembly.Location;
+            const int c_PeHeaderOffset = 60;
+            const int c_LinkerTimestampOffset = 8;
+
+            var buffer = new byte[2048];
+
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                stream.Read(buffer, 0, 2048);
+
+            var offset = BitConverter.ToInt32(buffer, c_PeHeaderOffset);
+            var secondsSince1970 = BitConverter.ToInt32(buffer, offset + c_LinkerTimestampOffset);
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            var linkTimeUtc = epoch.AddSeconds(secondsSince1970);
+
+            var tz = target ?? TimeZoneInfo.Local;
+            var localTime = TimeZoneInfo.ConvertTimeFromUtc(linkTimeUtc, tz);
+
+            return localTime;
+        }
 
         /// <summary>
         /// Download the list of shaders from Shadertoy.
