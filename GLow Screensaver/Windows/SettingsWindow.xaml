@@ -52,8 +52,8 @@
                 </Border>
                 <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Text="Recherche" Margin="5" />
-                    <wpf:WatermarkComboBox Watermark="mots recherchés" Width="200" IsReadOnly="False" />
-                    <TextBlock Text="Ordre" Margin="5" />
+                    <wpf:WatermarkTextBox Watermark="mots recherchés" Width="200" IsReadOnly="False" />
+                    <TextBlock Text="Ordre" Margin="35,5,5,5" />
                     <ComboBox Width="150" SelectedIndex="0">
                         <TextBlock Text="Les plus récents" />
                         <TextBlock Text="Les plus populaire" />
