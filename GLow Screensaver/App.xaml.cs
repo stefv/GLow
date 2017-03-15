@@ -62,8 +62,8 @@ namespace GLow_Screensaver
             // Show the settings dialog
             else if ((firstArg.ToUpper() == "/C") || ((firstArg.ToUpper().StartsWith("/C:"))))
             {
-                new SettingsDialog().ShowDialog();
-                //new SettingsWindow().ShowDialog();
+                //new SettingsDialog().ShowDialog();
+                new SettingsWindow().ShowDialog();
             }
             // Just quit the application
             else
