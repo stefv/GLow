@@ -22,7 +22,7 @@ namespace GLowCommon.Data
     /// <summary>
     /// Source for the image.
     /// </summary>
-	public class ImageSource
+	public class ImageSourceModel
 	{
         /// <summary>
         /// Identity.
@@ -42,7 +42,7 @@ namespace GLowCommon.Data
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public ImageSource()
+        public ImageSourceModel()
 		{
 		}
 	}

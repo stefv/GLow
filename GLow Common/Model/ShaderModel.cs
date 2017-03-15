@@ -18,6 +18,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace GLowCommon.Data
@@ -118,6 +119,10 @@ namespace GLowCommon.Data
         /// Read only shader. Only copies can be done.
         /// </summary>
         public bool ReadOnly { get; set; }
+
+        private List<ImageSourceModel> _imageSources = new List<ImageSourceModel>();
+
+        public List<ImageSourceModel> ImageSources { get { return _imageSources; } }
 
         /// <summary>
         /// Default constructor.

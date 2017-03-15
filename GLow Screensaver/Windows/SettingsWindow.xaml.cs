@@ -17,13 +17,13 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-using GLow_Screensaver.Utils;
-using Microsoft.Win32;
+using GLow_Screensaver.Services;
+using GLow_Screensaver.ViewModel;
+using GLowCommon.Data;
 using System;
-using System.Drawing;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Interop;
 
 namespace GLow_Screensaver
@@ -36,6 +36,12 @@ namespace GLow_Screensaver
         [DllImport("user32.dll")]
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
 
+        public ShaderViewModel Shaders
+        {
+            get;
+            set;
+        }
+
         #region Constructors
         /// <summary>
         /// Default constructor.
@@ -45,12 +51,30 @@ namespace GLow_Screensaver
             InitializeComponent();
             Loaded += SettingsWindow_Loaded;
         }
+        #endregion
 
         private void SettingsWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //EnableBlur();
+            Shaders = new ShaderViewModel();
+            DataContext = Shaders;
+
+            int count = ShaderService.CountShaders();
+            if (count > 1)
+            {
+                List<ShaderModel> shaders = ShaderService.GetShaders(0, 1);
+                foreach (ShaderModel shader in shaders) Shaders.Shaders.Add(shader);
+            }
         }
-        #endregion
+
+        private bool IsUserVisible(FrameworkElement element, FrameworkElement container)
+        {
+            if (!element.IsVisible)
+                return false;
+
+            Rect bounds = element.TransformToAncestor(container).TransformBounds(new Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
+            Rect rect = new Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
+            return rect.Contains(bounds.TopLeft) || rect.Contains(bounds.BottomRight);
+        }
 
         internal void EnableBlur()
         {

@@ -45,12 +45,14 @@ namespace GLowService.Services
         /// <summary>
         /// Returns the list of shaders.
         /// </summary>
+        /// <param name="startIndex">Minimum start index of the first shader to return.</param>
+        /// <param name="count">Number of shaders to return.</param>
         /// <returns>The list.</returns>
-        public List<ShaderModel> GetShaders()
+        public List<ShaderModel> GetShaders(int startIndex, int count)
         {
             List<ShaderModel> result = new List<ShaderModel>();
             SQLiteConnection db = Database.Instance.GetConnection();
-            IEnumerator<Shader> shaders = (from s in db.Table<Shader>() select s).GetEnumerator();
+            IEnumerator<Shader> shaders = (from s in db.Table<Shader>() where s.Id >= startIndex select s).Take(count).GetEnumerator();
             while (shaders.MoveNext())
             {
                 Shader sourceShader = shaders.Current;
@@ -63,6 +65,15 @@ namespace GLowService.Services
                 targetShader.ReadOnly = sourceShader.ReadOnly;
                 targetShader.ShadertoyID = sourceShader.ShadertoyID;
                 result.Add(targetShader);
+
+                // Search image sources
+                ImageSource imageSource = (from s in db.Table<ImageSource>() where s.Id == sourceShader.Id select s).FirstOrDefault();
+                if (!imageSource.SourceCode.Contains("iChannel") && !imageSource.SourceCode.Contains("iSampleRate"))
+                {
+                    ImageSourceModel imageSourceTarget = new ImageSourceModel();
+                    imageSourceTarget.SourceCode = imageSource.SourceCode;
+                    targetShader.ImageSources.Add(imageSourceTarget);
+                }
             }
 
             return result;

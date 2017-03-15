@@ -46,15 +46,17 @@ namespace GLow_Screensaver.Services
         /// <summary>
         /// Return the list of shaders.
         /// </summary>
+        /// <param name="startIndex">Minimum start index of the first shader to return.</param>
+        /// <param name="count">Number of shaders to return.</param>
         /// <returns>The list of shaders.</returns>
-        public static List<ShaderModel> GetShaders()
+        public static List<ShaderModel> GetShaders(int startIndex, int count)
         {
             ChannelFactory<IShaderService> pipeFactory =
                 new ChannelFactory<IShaderService>(new NetNamedPipeBinding(), new EndpointAddress("net.pipe://localhost/" + ShaderServiceConst.SERVICE_NAME));
 
             IShaderService pipeProxy = pipeFactory.CreateChannel();
 
-            return pipeProxy.GetShaders();
+            return pipeProxy.GetShaders(startIndex, count);
         }
 
         public static Dictionary<string, string> GetShadersID()

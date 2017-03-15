@@ -46,9 +46,11 @@ namespace GLowCommon.Services
         /// <summary>
         /// Returns the list of shaders from ShaderToy.
         /// </summary>
+        /// <param name="startIndex">Minimum start index of the first shader to return.</param>
+        /// <param name="count">Number of shaders to return.</param>
         /// <returns>The list.</returns>
         [OperationContract]
-        List<ShaderModel> GetShaders();
+        List<ShaderModel> GetShaders(int startIndex, int count);
     }
 
     /// <summary>

@@ -195,7 +195,7 @@ namespace GLow_Screensaver
         private void RefreshList()
         {
             //Dictionary<string, string> shaders = ShaderService.GetShadersID();
-            int count = 0;
+            /*int count = 0;
             try
             {
                 count = ShaderService.CountShaders();
@@ -205,7 +205,7 @@ namespace GLow_Screensaver
             {
                 Debug.WriteLine("Service exception: " + ex.Message);
                 return;
-            }
+            }*/
             /*foreach (ShaderModel shader in shaders)
             {
                 if (!ShaderList.Contains(shader))
@@ -217,7 +217,7 @@ namespace GLow_Screensaver
                     ShaderList.Add(shader);
                 }
             }*/
-            Debug.WriteLine("Shaders found: " + count);
+            //Debug.WriteLine("Shaders found: " + count);
         }
         #endregion
         #region Filter the list

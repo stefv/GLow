@@ -21,6 +21,7 @@
 -->
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
         xmlns:wpf="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:glctrl="clr-namespace:GLow_Screensaver.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Controls="clr-namespace:GLow_Screensaver.Controls" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="GLow_Screensaver.SettingsWindow" Title="GLow Screensaver" ShowInTaskbar="True"
         WindowStyle="SingleBorderWindow" d:DesignWidth="893.37" d:DesignHeight="667.337" Icon="/GLow Screensaver;component/Images/icon-final.png">
 
@@ -47,9 +48,13 @@
                     <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+
+                <!-- Preview box -->
                 <Border Grid.Row="0" Background="#FFEFEFEF">
-                    
+
                 </Border>
+
+                <!-- Filter controls -->
                 <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Text="Recherche" Margin="5" />
                     <wpf:WatermarkTextBox Watermark="mots recherchés" Width="200" IsReadOnly="False" />
@@ -59,44 +64,26 @@
                         <TextBlock Text="Les plus populaire" />
                     </ComboBox>
                 </StackPanel>
+
+                <!-- List of shaders -->
                 <ScrollViewer Grid.Row="2" Padding="5">
-                    <WrapPanel>
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                        <Border Width="192" Height="108" Background="Red" Margin="5" />
-                    </WrapPanel>
+                    <ListBox Name="SomeList" Margin="0,0,-12,0" ItemsSource="{Binding Shaders}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel x:Name="wrapPanel" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="LightGray" BorderThickness="1">
+                                    <StackPanel Orientation="Horizontal" Margin="5" Width="192" Height="108">
+                                        <!--<TextBlock Text="{Binding Name}" />-->
+                                        <!--<glctrl:GLScreensaverControl IsPreview="True" Width="Auto" Height="Auto" Source="{Binding }"  />-->
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </ScrollViewer>
             </Grid>
         </Border>
