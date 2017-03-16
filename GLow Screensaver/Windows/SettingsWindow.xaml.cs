@@ -36,7 +36,7 @@ namespace GLow_Screensaver
         [DllImport("user32.dll")]
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
 
-        public ShaderViewModel Shaders
+        public SettingsViewModel ViewModel
         {
             get;
             set;
@@ -55,14 +55,14 @@ namespace GLow_Screensaver
 
         private void SettingsWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            Shaders = new ShaderViewModel();
-            DataContext = Shaders;
+            ViewModel = new SettingsViewModel();
+            DataContext = ViewModel;
 
             int count = ShaderService.CountShaders();
             if (count > 1)
             {
                 List<ShaderModel> shaders = ShaderService.GetShaders(0, 1);
-                foreach (ShaderModel shader in shaders) Shaders.Shaders.Add(shader);
+                foreach (ShaderModel shader in shaders) ViewModel.Shaders.Add(new ShaderViewModel(shader));
             }
         }
 

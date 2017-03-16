@@ -44,16 +44,16 @@ namespace GLow_Screensaver.Controls
             set { SetValue(IsPreviewProperty, value); }
         }
 
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsPreview.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsPreviewProperty = DependencyProperty.Register("IsPreview", typeof(bool), typeof(GLScreensaverControl), new PropertyMetadata(false));
+
         public string Source
         {
             get { return (string)GetValue(SourceProperty); }
             set { SetValue(SourceProperty, value); }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsPreview.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsPreviewProperty = DependencyProperty.Register("IsPreview", typeof(bool), typeof(GLScreensaverControl), new PropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsPreview.  This enables animation, styling, binding, etc...

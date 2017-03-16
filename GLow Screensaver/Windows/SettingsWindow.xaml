@@ -77,8 +77,8 @@
                             <DataTemplate>
                                 <Border BorderBrush="LightGray" BorderThickness="1">
                                     <StackPanel Orientation="Horizontal" Margin="5" Width="192" Height="108">
-                                        <!--<TextBlock Text="{Binding Name}" />-->
-                                        <!--<glctrl:GLScreensaverControl IsPreview="True" Width="Auto" Height="Auto" Source="{Binding }"  />-->
+                                        <TextBlock Text="{Binding Name}" />
+                                        <glctrl:GLScreensaverControl IsPreview="True" Width="Auto" Height="Auto" Source="{Binding SourceCode}"  />
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
