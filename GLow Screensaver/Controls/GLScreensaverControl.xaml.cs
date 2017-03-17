@@ -58,7 +58,7 @@ namespace GLow_Screensaver.Controls
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsPreview.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(string), typeof(GLScreensaverControl), new PropertyMetadata(false));
+        public static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(string), typeof(GLScreensaverControl), new PropertyMetadata(null, new PropertyChangedCallback(Source_PropertyChanged)));
 
         /// <summary>
         /// Display or not the FPS counter.
@@ -162,6 +162,8 @@ namespace GLow_Screensaver.Controls
                 SetupViewport();
 
                 _glInitialized = true;
+
+                if (Source != null && Source != "") InitializeFragmentShader(Source);
             }
         }
         #endregion
@@ -383,6 +385,13 @@ namespace GLow_Screensaver.Controls
             //Debug.WriteLine("ctrl.IsShowFPS:" + ctrl.IsShowFPS);
             //ctrl.FPSPopup.IsOpen = ctrl.IsShowFPS; // FIXME Activate again this FPS counter
         }
+
+        private static void Source_PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            GLScreensaverControl ctrl = (GLScreensaverControl)sender;
+            if (ctrl.Source != null && ctrl.Source != "") ctrl.InitializeFragmentShader(ctrl.Source);
+        }
+
 
         //private void Window_KeyUp(object sender, KeyEventArgs e)
         //{

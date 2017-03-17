@@ -21,7 +21,7 @@
 -->
 <UserControl x:Class="GLow_Screensaver.Controls.GLScreensaverControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:GL="clr-namespace:OpenTK;assembly=OpenTK.GLControl" 
-             Height="313" Width="465" KeyDown="Window_KeyDown" Focusable="False">
+             KeyDown="Window_KeyDown" Focusable="False" Background="Red">
 
     <Grid x:Name="grid" Focusable="False">
         <WindowsFormsHost  x:Name="wfContainer" Focusable="False">

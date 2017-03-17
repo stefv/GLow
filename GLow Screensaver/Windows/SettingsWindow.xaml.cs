@@ -58,11 +58,25 @@ namespace GLow_Screensaver
             ViewModel = new SettingsViewModel();
             DataContext = ViewModel;
 
+            const int NB_SHADERS = 10;
+
+            bool firstShader = true;
             int count = ShaderService.CountShaders();
             if (count > 1)
             {
-                List<ShaderModel> shaders = ShaderService.GetShaders(0, 1);
-                foreach (ShaderModel shader in shaders) ViewModel.Shaders.Add(new ShaderViewModel(shader));
+                for (int s = 0; s < NB_SHADERS; s++)
+                {
+                    List<ShaderModel> shaders = ShaderService.GetShaders(s, 1);
+                    foreach (ShaderModel shader in shaders)
+                    {
+                        if (shader.ImageSources.Count > 0)
+                        {
+                            ViewModel.Shaders.Add(new ShaderViewModel(shader));
+                            if (firstShader) preview.Source = shader.ImageSources[0].SourceCode;
+                            firstShader = false;
+                        }
+                    }
+                }
             }
         }
 

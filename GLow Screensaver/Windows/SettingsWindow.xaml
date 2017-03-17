@@ -51,7 +51,7 @@
 
                 <!-- Preview box -->
                 <Border Grid.Row="0" Background="#FFEFEFEF">
-
+                    <glctrl:GLScreensaverControl x:Name="preview" IsPreview="True" Source="{Binding SourceCode}"  />
                 </Border>
 
                 <!-- Filter controls -->
@@ -76,9 +76,9 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="LightGray" BorderThickness="1">
-                                    <StackPanel Orientation="Horizontal" Margin="5" Width="192" Height="108">
+                                    <StackPanel Orientation="Vertical" Margin="5" >
+                                        <glctrl:GLScreensaverControl IsPreview="True" Source="{Binding SourceCode}" Width="192" Height="108" />
                                         <TextBlock Text="{Binding Name}" />
-                                        <glctrl:GLScreensaverControl IsPreview="True" Width="Auto" Height="Auto" Source="{Binding SourceCode}"  />
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
