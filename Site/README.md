@@ -4,3 +4,5 @@ GLow is composed of 3 different components. This architecture grant to the users
 
 ![The components](https://github.com/stefv/GLow/raw/Windows10_UI/Site/Images/architecture.png)
 
+## GLow Windows service
+This Windows service is installed during the setup of GLow.
