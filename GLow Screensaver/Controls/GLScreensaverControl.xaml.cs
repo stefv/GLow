@@ -22,6 +22,8 @@ using OpenTK.Graphics.OpenGL;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -100,7 +102,7 @@ namespace GLow_Screensaver.Controls
         /// <summary>
         /// Mouse position used in the shaders with the variable iMouse.
         /// </summary>
-        private Point _mousePosition = new Point(0, 0);
+        private System.Windows.Point _mousePosition = new System.Windows.Point(0, 0);
 
         /// <summary>
         /// Frame rate counter. This value is the number of frames during one second.
@@ -294,6 +296,17 @@ namespace GLow_Screensaver.Controls
                 // Show the back buffer
                 glControl.SwapBuffers();
 
+                // set up bitmap we will save to
+                if (Width > 0 && Height > 0)
+                {
+                    Bitmap bitmap = new Bitmap((int)Width, (int)Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                    BitmapData bData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
+                    GL.ReadPixels(0, 0, bitmap.Width, bitmap.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bData.Scan0);
+                    bitmap.UnlockBits(bData);
+                    bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                    bitmap.Save(@"c:\temp\test.png");
+                }
+
                 // Update the FPS
                 if ((DateTime.Now - _timeFPS).TotalSeconds >= 1)
                 {
@@ -349,7 +362,7 @@ namespace GLow_Screensaver.Controls
         /// <param name="e"></param>
         private void glControl_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right) _mousePosition = new Point(e.X, e.Y);
+            if (e.Button == System.Windows.Forms.MouseButtons.Right) _mousePosition = new System.Windows.Point(e.X, e.Y);
             Mouse.OverrideCursor = Cursors.Arrow;
             _timeVisibleMouse = DateTime.Now;
         }
