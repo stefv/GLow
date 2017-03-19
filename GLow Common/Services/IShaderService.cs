@@ -37,11 +37,19 @@ namespace GLowCommon.Services
         int CountShader();
 
         /// <summary>
-        /// Get the shader's ID and their name.
+        /// Get the UID of the shaders. The UID is the ShaderToys ID.
         /// </summary>
-        /// <returns>The shader's ID and their name.</returns>
+        /// <returns>The UID of the shaders.</returns>
         [OperationContract]
-        Dictionary<string, string> GetShadersId();
+        List<string> GetShadersUID();
+
+        /// <summary>
+        /// Returns the required shader.
+        /// </summary>
+        /// <param name="uid">UID of the shader.</param>
+        /// <returns>The shader or null of the index doesn't exist.</returns>
+        [OperationContract]
+        ShaderModel GetShader(string uid);
 
         /// <summary>
         /// Returns the list of shaders from ShaderToy.

@@ -43,6 +43,37 @@ namespace GLowService.Services
         }
 
         /// <summary>
+        /// Get the UID of the shaders. The UID is the ShaderToys ID.
+        /// </summary>
+        /// <returns>The UID of the shaders.</returns>
+        List<string> IShaderService.GetShadersUID()
+        {
+            //System.Diagnostics.Debugger.Launch();
+
+            List<string> uids = new List<string>();
+            SQLiteConnection db = Database.Instance.GetConnection();
+            IEnumerator<string> enumUID = (from s in db.Table<Shader>() select s.ShadertoyID).GetEnumerator();
+            while (enumUID.MoveNext())
+            {
+                string uid = enumUID.Current;
+                uids.Add(uid);
+            }
+            return uids;
+        }
+
+        /// <summary>
+        /// Returns the required shader.
+        /// </summary>
+        /// <param name="index">Index of the shader in the database.</param>
+        /// <returns>The shader or null of the index doesn't exist.</returns>
+        public ShaderModel GetShader(string name)
+        {
+            SQLiteConnection db = Database.Instance.GetConnection();
+            Shader shader = (from s in db.Table<Shader>() where s.ShadertoyID == name select s).First();
+            return CopyShaderToShadelModel(shader);
+        }
+
+        /// <summary>
         /// Returns the list of shaders.
         /// </summary>
         /// <param name="startIndex">Minimum start index of the first shader to return.</param>
@@ -94,6 +125,29 @@ namespace GLowService.Services
                 result[sourceShader.ShadertoyID] = sourceShader.Name;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Copy the Shader to the ShaderModel.
+        /// </summary>
+        /// <param name="shader">The shader to copy.</param>
+        /// <returns>The ShaderModel.</returns>
+        private ShaderModel CopyShaderToShadelModel(Shader shader)
+        {
+            ShaderModel shaderModel = null;
+            if (shader != null)
+            {
+                ShaderModel targetShader = new ShaderModel();
+                shaderModel.Author = shader.Author;
+                shaderModel.Description = shader.Description;
+                shaderModel.Id = shader.Id;
+                shaderModel.LastUpdate = shader.LastUpdate;
+                shaderModel.Name = shader.Name;
+                shaderModel.ReadOnly = shader.ReadOnly;
+                shaderModel.ShadertoyID = shader.ShadertoyID;
+
+            }
+            return shaderModel;
         }
     }
 }

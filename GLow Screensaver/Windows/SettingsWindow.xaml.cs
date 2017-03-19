@@ -64,6 +64,8 @@ namespace GLow_Screensaver
             int count = ShaderService.CountShaders();
             if (count > 1)
             {
+                List<string> shadersUID = ShaderService.GetShadersUID();
+
                 for (int s = 0; s < NB_SHADERS; s++)
                 {
                     List<ShaderModel> shaders = ShaderService.GetShaders(s, 1);

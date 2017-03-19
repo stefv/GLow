@@ -30,7 +30,7 @@ namespace GLow_Screensaver.Services
     public static class ShaderService
     {
         /// <summary>
-        /// Return the number of shaders.
+        /// Returns the number of shaders.
         /// </summary>
         /// <returns>The number of shaders.</returns>
         public static int CountShaders()
@@ -44,7 +44,37 @@ namespace GLow_Screensaver.Services
         }
 
         /// <summary>
-        /// Return the list of shaders.
+        /// Returns the UID of the shaders.
+        /// </summary>
+        /// <returns>The UID of the sahders.</returns>
+        public static List<string> GetShadersUID()
+        {
+            ChannelFactory<IShaderService> pipeFactory =
+                new ChannelFactory<IShaderService>(new NetNamedPipeBinding(), new EndpointAddress("net.pipe://localhost/" + ShaderServiceConst.SERVICE_NAME));
+
+            IShaderService pipeProxy = pipeFactory.CreateChannel();
+
+            return pipeProxy.GetShadersUID();
+        }
+
+        /// <summary>
+        /// Returns the shader.
+        /// </summary>
+        /// <param name="startIndex">Minimum start index of the first shader to return.</param>
+        /// <param name="count">Number of shaders to return.</param>
+        /// <returns>The list of shaders.</returns>
+        public static ShaderModel GetShader(string uid)
+        {
+            ChannelFactory<IShaderService> pipeFactory =
+                new ChannelFactory<IShaderService>(new NetNamedPipeBinding(), new EndpointAddress("net.pipe://localhost/" + ShaderServiceConst.SERVICE_NAME));
+
+            IShaderService pipeProxy = pipeFactory.CreateChannel();
+
+            return pipeProxy.GetShader(uid);
+        }
+
+        /// <summary>
+        /// Returns the list of shaders.
         /// </summary>
         /// <param name="startIndex">Minimum start index of the first shader to return.</param>
         /// <param name="count">Number of shaders to return.</param>
@@ -57,16 +87,6 @@ namespace GLow_Screensaver.Services
             IShaderService pipeProxy = pipeFactory.CreateChannel();
 
             return pipeProxy.GetShaders(startIndex, count);
-        }
-
-        public static Dictionary<string, string> GetShadersID()
-        {
-            ChannelFactory<IShaderService> pipeFactory =
-                new ChannelFactory<IShaderService>(new NetNamedPipeBinding(), new EndpointAddress("net.pipe://localhost/" + ShaderServiceConst.SERVICE_NAME));
-
-            IShaderService pipeProxy = pipeFactory.CreateChannel();
-
-            return pipeProxy.GetShadersId();
         }
     }
 }
