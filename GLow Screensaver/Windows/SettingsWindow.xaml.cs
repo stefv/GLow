@@ -22,6 +22,7 @@ using GLow_Screensaver.ViewModel;
 using GLowCommon.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -42,6 +43,8 @@ namespace GLow_Screensaver
             set;
         }
 
+        private BackgroundWorker _shadersBackgroundWorker = new BackgroundWorker();
+
         #region Constructors
         /// <summary>
         /// Default constructor.
@@ -58,13 +61,20 @@ namespace GLow_Screensaver
             ViewModel = new SettingsViewModel();
             DataContext = ViewModel;
 
-            const int NB_SHADERS = 10;
+            // Get the list of shaders
+            List<string> shadersUID = ShaderService.GetShadersUID();
+
+            // Update the list asynchronously
+            _shadersBackgroundWorker.DoWork += _shadersBackgroundWorker_DoWork;
+            _shadersBackgroundWorker.ProgressChanged += _shadersBackgroundWorker_ProgressChanged;
+            _shadersBackgroundWorker.RunWorkerAsync(shadersUID);
+
+            /*const int NB_SHADERS = 10;
 
             bool firstShader = true;
             int count = ShaderService.CountShaders();
             if (count > 1)
             {
-                List<string> shadersUID = ShaderService.GetShadersUID();
 
                 for (int s = 0; s < NB_SHADERS; s++)
                 {
@@ -79,6 +89,21 @@ namespace GLow_Screensaver
                         }
                     }
                 }
+            }*/
+        }
+
+        private void _shadersBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ViewModel.Shaders.Add(new ShaderViewModel((ShaderModel)e.UserState));
+        }
+
+        private void _shadersBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<string> shadersUID = (List<string>)e.Argument;
+            foreach (string shaderUID in shadersUID)
+            {
+                ShaderModel shader = ShaderService.GetShader(shaderUID);
+                _shadersBackgroundWorker.ReportProgress(0, shader);
             }
         }
 

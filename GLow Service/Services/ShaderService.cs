@@ -23,6 +23,7 @@ using GLowService.Data;
 using SQLite;
 using System.Collections.Generic;
 using System;
+using GLowService.Helper;
 
 namespace GLowService.Services
 {
@@ -48,16 +49,15 @@ namespace GLowService.Services
         /// <returns>The UID of the shaders.</returns>
         List<string> IShaderService.GetShadersUID()
         {
-            //System.Diagnostics.Debugger.Launch();
-
             List<string> uids = new List<string>();
             SQLiteConnection db = Database.Instance.GetConnection();
-            IEnumerator<string> enumUID = (from s in db.Table<Shader>() select s.ShadertoyID).GetEnumerator();
-            while (enumUID.MoveNext())
+            IEnumerator<Shader> shaders = (from s in db.Table<Shader>() select s).GetEnumerator();
+            while (shaders.MoveNext())
             {
-                string uid = enumUID.Current;
-                uids.Add(uid);
+                Shader shader = shaders.Current;
+                uids.Add(shader.ShadertoyID);
             }
+            LogHelper.Info(101, "GetShadersUID: step 4 END -> " + uids);
             return uids;
         }
 
@@ -69,8 +69,13 @@ namespace GLowService.Services
         public ShaderModel GetShader(string name)
         {
             SQLiteConnection db = Database.Instance.GetConnection();
-            Shader shader = (from s in db.Table<Shader>() where s.ShadertoyID == name select s).First();
-            return CopyShaderToShadelModel(shader);
+            IEnumerator<Shader> shaders = (from s in db.Table<Shader>() where s.ShadertoyID == name select s).GetEnumerator();
+            if (shaders.MoveNext())
+            {
+                Shader shader = shaders.Current;
+                return CopyShaderToShadelModel(shader);
+            }
+            return null;
         }
 
         /// <summary>
