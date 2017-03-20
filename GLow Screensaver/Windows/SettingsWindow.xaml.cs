@@ -67,6 +67,7 @@ namespace GLow_Screensaver
             // Update the list asynchronously
             _shadersBackgroundWorker.DoWork += _shadersBackgroundWorker_DoWork;
             _shadersBackgroundWorker.ProgressChanged += _shadersBackgroundWorker_ProgressChanged;
+            _shadersBackgroundWorker.WorkerReportsProgress = true;
             _shadersBackgroundWorker.RunWorkerAsync(shadersUID);
 
             /*const int NB_SHADERS = 10;
@@ -99,11 +100,12 @@ namespace GLow_Screensaver
 
         private void _shadersBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            int index = 0;
             List<string> shadersUID = (List<string>)e.Argument;
             foreach (string shaderUID in shadersUID)
             {
                 ShaderModel shader = ShaderService.GetShader(shaderUID);
-                _shadersBackgroundWorker.ReportProgress(0, shader);
+                _shadersBackgroundWorker.ReportProgress((int)((100.0d * index++) / shadersUID.Count), shader);
             }
         }
 

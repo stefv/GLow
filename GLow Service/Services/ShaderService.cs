@@ -24,12 +24,14 @@ using SQLite;
 using System.Collections.Generic;
 using System;
 using GLowService.Helper;
+using System.ServiceModel;
 
 namespace GLowService.Services
 {
     /// <summary>
     /// Services for the shaders.
     /// </summary>
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class ShaderService : IShaderService
     {
         /// <summary>
@@ -57,7 +59,6 @@ namespace GLowService.Services
                 Shader shader = shaders.Current;
                 uids.Add(shader.ShadertoyID);
             }
-            LogHelper.Info(101, "GetShadersUID: step 4 END -> " + uids);
             return uids;
         }
 
@@ -142,7 +143,7 @@ namespace GLowService.Services
             ShaderModel shaderModel = null;
             if (shader != null)
             {
-                ShaderModel targetShader = new ShaderModel();
+                shaderModel = new ShaderModel();
                 shaderModel.Author = shader.Author;
                 shaderModel.Description = shader.Description;
                 shaderModel.Id = shader.Id;
@@ -150,7 +151,7 @@ namespace GLowService.Services
                 shaderModel.Name = shader.Name;
                 shaderModel.ReadOnly = shader.ReadOnly;
                 shaderModel.ShadertoyID = shader.ShadertoyID;
-
+                //LogHelper.Info(101, "CopyShaderToShadelModel: step 10");
             }
             return shaderModel;
         }

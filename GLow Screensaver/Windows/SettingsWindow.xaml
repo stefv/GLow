@@ -35,7 +35,7 @@
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="41*"/>
         </Grid.ColumnDefinitions>
-        <Border Background="Black" Grid.Column="0" Margin="0,0,0,0.5">
+        <Border Background="#FF353C55" Grid.Column="0" Margin="0,0,0,0.5">
             <StackPanel Orientation="Vertical">
                 <Button Content="{StaticResource MonitorIcon}" Background="Transparent" BorderThickness="0" />
                 <Button Content="{StaticResource SettingsIcon}" Background="Transparent" BorderThickness="0" />
@@ -75,7 +75,7 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="LightGray" BorderThickness="1">
+                                <Border BorderBrush="LightGray" BorderThickness="1" Width="200" MinHeight="108">
                                     <StackPanel Orientation="Vertical" Margin="5" >
                                         <!--<glctrl:GLScreensaverControl IsPreview="True" Source="{Binding SourceCode}" Width="192" Height="108" />-->
                                         <TextBlock Text="{Binding Name}" />
