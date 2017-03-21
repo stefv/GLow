@@ -105,7 +105,7 @@ namespace GLow_Screensaver
             {
                 ViewModel.Shaders.Add(shaderViewModel);
                 if (ViewModel.Shaders.Count == 1) preview.Source = ViewModel.Shaders[0].SourceCode;
-                nbShaders.Text = "# of shaders:" + ViewModel.Shaders.Count;
+                nbShaders.Text = "# of shaders: " + ViewModel.Shaders.Count;
             }
         }
 
