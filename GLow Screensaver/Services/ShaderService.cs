@@ -19,6 +19,7 @@
 
 using GLowCommon.Data;
 using GLowCommon.Services;
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -70,23 +71,16 @@ namespace GLow_Screensaver.Services
 
             IShaderService pipeProxy = pipeFactory.CreateChannel();
 
-            return pipeProxy.GetShader(uid);
-        }
+            ShaderModel shaderModel = null;
+            try
+            {
+                shaderModel = pipeProxy.GetShader(uid);
+            }
+            catch (Exception e)
+            {
+            }
 
-        /// <summary>
-        /// Returns the list of shaders.
-        /// </summary>
-        /// <param name="startIndex">Minimum start index of the first shader to return.</param>
-        /// <param name="count">Number of shaders to return.</param>
-        /// <returns>The list of shaders.</returns>
-        public static List<ShaderModel> GetShaders(int startIndex, int count)
-        {
-            ChannelFactory<IShaderService> pipeFactory =
-                new ChannelFactory<IShaderService>(new NetNamedPipeBinding(), new EndpointAddress("net.pipe://localhost/" + ShaderServiceConst.SERVICE_NAME));
-
-            IShaderService pipeProxy = pipeFactory.CreateChannel();
-
-            return pipeProxy.GetShaders(startIndex, count);
+            return shaderModel;
         }
     }
 }

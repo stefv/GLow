@@ -20,10 +20,9 @@
 using GLowCommon.Data;
 using GLowCommon.Services;
 using GLowService.Data;
+using GLowService.Helper;
 using SQLite;
 using System.Collections.Generic;
-using System;
-using GLowService.Helper;
 using System.ServiceModel;
 
 namespace GLowService.Services
@@ -37,7 +36,7 @@ namespace GLowService.Services
         /// <summary>
         /// Returns the number of shaders.
         /// </summary>
-        /// <returns>The nulmber of shaders.</returns>
+        /// <returns>The number of shaders.</returns>
         public int CountShader()
         {
             SQLiteConnection db = Database.Instance.GetConnection();
@@ -70,50 +69,8 @@ namespace GLowService.Services
         public ShaderModel GetShader(string name)
         {
             SQLiteConnection db = Database.Instance.GetConnection();
-            IEnumerator<Shader> shaders = (from s in db.Table<Shader>() where s.ShadertoyID == name select s).GetEnumerator();
-            if (shaders.MoveNext())
-            {
-                Shader shader = shaders.Current;
-                return CopyShaderToShadelModel(shader);
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Returns the list of shaders.
-        /// </summary>
-        /// <param name="startIndex">Minimum start index of the first shader to return.</param>
-        /// <param name="count">Number of shaders to return.</param>
-        /// <returns>The list.</returns>
-        public List<ShaderModel> GetShaders(int startIndex, int count)
-        {
-            List<ShaderModel> result = new List<ShaderModel>();
-            SQLiteConnection db = Database.Instance.GetConnection();
-            IEnumerator<Shader> shaders = (from s in db.Table<Shader>() where s.Id >= startIndex select s).Take(count).GetEnumerator();
-            while (shaders.MoveNext())
-            {
-                Shader sourceShader = shaders.Current;
-                ShaderModel targetShader = new ShaderModel();
-                targetShader.Author = sourceShader.Author;
-                targetShader.Description = sourceShader.Description;
-                targetShader.Id = sourceShader.Id;
-                targetShader.LastUpdate = sourceShader.LastUpdate;
-                targetShader.Name = sourceShader.Name;
-                targetShader.ReadOnly = sourceShader.ReadOnly;
-                targetShader.ShadertoyID = sourceShader.ShadertoyID;
-                result.Add(targetShader);
-
-                // Search image sources
-                ImageSource imageSource = (from s in db.Table<ImageSource>() where s.Id == sourceShader.Id select s).FirstOrDefault();
-                if (!imageSource.SourceCode.Contains("iChannel") && !imageSource.SourceCode.Contains("iSampleRate"))
-                {
-                    ImageSourceModel imageSourceTarget = new ImageSourceModel();
-                    imageSourceTarget.SourceCode = imageSource.SourceCode;
-                    targetShader.ImageSources.Add(imageSourceTarget);
-                }
-            }
-
-            return result;
+            Shader shader = (from s in db.Table<Shader>() where s.ShadertoyID == name select s).FirstOrDefault();
+            return CopyShaderToShadelModel(shader);
         }
 
         /// <summary>
@@ -151,7 +108,20 @@ namespace GLowService.Services
                 shaderModel.Name = shader.Name;
                 shaderModel.ReadOnly = shader.ReadOnly;
                 shaderModel.ShadertoyID = shader.ShadertoyID;
-                //LogHelper.Info(101, "CopyShaderToShadelModel: step 10");
+
+                // Search image sources. This version of GLow doesn't support the shaders with iChannel and iSampleRate.
+                // Maybe for the next versions ?
+                SQLiteConnection db = Database.Instance.GetConnection();
+                IEnumerator<ImageSource> imageSources = (from s in db.Table<ImageSource>() where s.Id == shader.Id select s).GetEnumerator();
+                while (imageSources.MoveNext())
+                {
+                    ImageSource imageSource = imageSources.Current;
+                    ImageSourceModel imageSourceTarget = new ImageSourceModel();
+                    imageSourceTarget.Id = imageSource.Id;
+                    imageSourceTarget.SourceCode = imageSource.SourceCode;
+                    shaderModel.ImageSources.Add(imageSourceTarget);
+                }
+                LogHelper.Info(101, "Shader " + shaderModel.ShadertoyID + ": #sources" + shaderModel.ImageSources.Count);
             }
             return shaderModel;
         }

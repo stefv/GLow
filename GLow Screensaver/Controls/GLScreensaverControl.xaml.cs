@@ -203,6 +203,14 @@ namespace GLow_Screensaver.Controls
         {
             if (_glProgram > 0)
             {
+                // TODO Support the iChannel
+                // TODO Support the iSampleRate
+                if (imageSourceCode.Contains("iChannel") || imageSourceCode.Contains("iSampleRate"))
+                {
+                    MessageBox.Show("This version of GLow doesn't support the shaders with iChannel or iSampleRate.", "Feature error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 // Insert in the first line the global variables used by the shader
                 imageSourceCode = "uniform vec3  iResolution;\r\n" + imageSourceCode;
                 imageSourceCode = "uniform float iGlobalTime;" + imageSourceCode;

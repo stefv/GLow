@@ -154,8 +154,7 @@ namespace GLow_Screensaver.ViewModel
             Author = src.Author;
             LastUpdate = src.LastUpdate;
             ReadOnly = src.ReadOnly;
-            //SourceCode = src.ImageSources[0].SourceCode;
-            SourceCode = null;
+            if (src.ImageSources.Count>0) SourceCode = src.ImageSources[0].SourceCode;
         }
 
         /// <summary>

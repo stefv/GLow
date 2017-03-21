@@ -50,15 +50,6 @@ namespace GLowCommon.Services
         /// <returns>The shader or null of the index doesn't exist.</returns>
         [OperationContract]
         ShaderModel GetShader(string uid);
-
-        /// <summary>
-        /// Returns the list of shaders from ShaderToy.
-        /// </summary>
-        /// <param name="startIndex">Minimum start index of the first shader to return.</param>
-        /// <param name="count">Number of shaders to return.</param>
-        /// <returns>The list.</returns>
-        [OperationContract]
-        List<ShaderModel> GetShaders(int startIndex, int count);
     }
 
     /// <summary>

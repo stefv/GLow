@@ -35,11 +35,6 @@ namespace GLowCommon.Data
 		public string SourceCode {get;set;}
 
         /// <summary>
-        /// Source for the image.
-        /// </summary>
-        public int Shader { get; set; }
-
-        /// <summary>
         /// Default constructor.
         /// </summary>
         public ImageSourceModel()
