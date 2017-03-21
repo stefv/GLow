@@ -20,12 +20,9 @@
 using GLow_Screensaver.Services;
 using GLow_Screensaver.ViewModel;
 using GLowCommon.Data;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Interop;
 
 namespace GLow_Screensaver
 {
@@ -34,9 +31,6 @@ namespace GLow_Screensaver
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-
         public SettingsViewModel ViewModel
         {
             get;
@@ -52,10 +46,14 @@ namespace GLow_Screensaver
         public SettingsWindow()
         {
             InitializeComponent();
-            Loaded += SettingsWindow_Loaded;
         }
         #endregion
-
+        #region Method to initialize the window
+        /// <summary>
+        /// Initialize the window.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">Argument for this event.</param>
         private void SettingsWindow_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel = new SettingsViewModel();
@@ -67,37 +65,17 @@ namespace GLow_Screensaver
             // Update the list asynchronously
             _shadersBackgroundWorker.DoWork += _shadersBackgroundWorker_DoWork;
             _shadersBackgroundWorker.ProgressChanged += _shadersBackgroundWorker_ProgressChanged;
+            _shadersBackgroundWorker.RunWorkerCompleted += _shadersBackgroundWorker_RunWorkerCompleted;
             _shadersBackgroundWorker.WorkerReportsProgress = true;
             _shadersBackgroundWorker.RunWorkerAsync(shadersUID);
-
-            /*const int NB_SHADERS = 10;
-
-            bool firstShader = true;
-            int count = ShaderService.CountShaders();
-            if (count > 1)
-            {
-
-                for (int s = 0; s < NB_SHADERS; s++)
-                {
-                    List<ShaderModel> shaders = ShaderService.GetShaders(s, 1);
-                    foreach (ShaderModel shader in shaders)
-                    {
-                        if (shader.ImageSources.Count > 0)
-                        {
-                            ViewModel.Shaders.Add(new ShaderViewModel(shader));
-                            if (firstShader) preview.Source = shader.ImageSources[0].SourceCode;
-                            firstShader = false;
-                        }
-                    }
-                }
-            }*/
         }
-
-        private void _shadersBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            ViewModel.Shaders.Add(new ShaderViewModel((ShaderModel)e.UserState));
-        }
-
+        #endregion
+        #region Methods to update the list with a background worker
+        /// <summary>
+        /// Update the list of shaders using a background worker.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">Argument for this event.</param>
         private void _shadersBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             int index = 0;
@@ -105,9 +83,42 @@ namespace GLow_Screensaver
             foreach (string shaderUID in shadersUID)
             {
                 ShaderModel shader = ShaderService.GetShader(shaderUID);
-                _shadersBackgroundWorker.ReportProgress((int)((100.0d * index++) / shadersUID.Count), shader);
+                if (shader != null) _shadersBackgroundWorker.ReportProgress((int)((100.0d * index++) / shadersUID.Count), shader);
             }
         }
+
+        /// <summary>
+        /// Report the progression and update the list control.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">Argument for this event.</param>
+        private void _shadersBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progress.Value = e.ProgressPercentage;
+
+            // TODO Support the iChannel
+            // TODO Support the iSampleRate
+            // Add the shade only if it doesn't contain iChannel of iSampleRate. These features are not supported yet.
+            ShaderModel shaderModel = (ShaderModel)e.UserState;
+            ShaderViewModel shaderViewModel = new ShaderViewModel(shaderModel);
+            if (!shaderViewModel.SourceCode.Contains("iChannel") && !shaderViewModel.SourceCode.Contains("iSampleRate"))
+            {
+                ViewModel.Shaders.Add(shaderViewModel);
+                if (ViewModel.Shaders.Count == 1) preview.Source = ViewModel.Shaders[0].SourceCode;
+                nbShaders.Text = "# of shaders:" + ViewModel.Shaders.Count;
+            }
+        }
+
+        /// <summary>
+        /// Finalize the update.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">Argument for this event.</param>
+        private void _shadersBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            progress.Value = 100;
+        }
+        #endregion
 
         private bool IsUserVisible(FrameworkElement element, FrameworkElement container)
         {
@@ -118,70 +129,5 @@ namespace GLow_Screensaver
             Rect rect = new Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
             return rect.Contains(bounds.TopLeft) || rect.Contains(bounds.BottomRight);
         }
-
-        internal void EnableBlur()
-        {
-            var windowHelper = new WindowInteropHelper(this);
-
-            var accent = new AccentPolicy();
-            accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
-
-            var accentStructSize = Marshal.SizeOf(accent);
-
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-
-            var data = new WindowCompositionAttributeData();
-            data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
-            data.SizeOfData = accentStructSize;
-            data.Data = accentPtr;
-
-            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-
-            Marshal.FreeHGlobal(accentPtr);
-        }
-
-        private void CloseBox_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void ReduiceBox_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-    }
-
-    internal enum AccentState
-    {
-        ACCENT_DISABLED = 0,
-        ACCENT_ENABLE_GRADIENT = 1,
-        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-        ACCENT_ENABLE_BLURBEHIND = 3,
-        ACCENT_INVALID_STATE = 4
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct AccentPolicy
-    {
-        public AccentState AccentState;
-        public int AccentFlags;
-        public int GradientColor;
-        public int AnimationId;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct WindowCompositionAttributeData
-    {
-        public WindowCompositionAttribute Attribute;
-        public IntPtr Data;
-        public int SizeOfData;
-    }
-
-    internal enum WindowCompositionAttribute
-    {
-        // ...
-        WCA_ACCENT_POLICY = 19
-        // ...
     }
 }

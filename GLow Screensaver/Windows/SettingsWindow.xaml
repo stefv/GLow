@@ -23,7 +23,7 @@
         xmlns:wpf="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:glctrl="clr-namespace:GLow_Screensaver.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Controls="clr-namespace:GLow_Screensaver.Controls" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="GLow_Screensaver.SettingsWindow" Title="GLow Screensaver" ShowInTaskbar="True"
-        WindowStyle="SingleBorderWindow" d:DesignWidth="893.37" d:DesignHeight="667.337" Icon="/GLow Screensaver;component/Images/icon-final.png">
+        WindowStyle="SingleBorderWindow" Width="730" Height="650" d:DesignWidth="730" d:DesignHeight="650" Icon="/GLow Screensaver;component/Images/icon-final.png" Loaded="SettingsWindow_Loaded">
 
     <Window.Resources>
         <Image x:Key="MonitorIcon" Source="/GLow Screensaver;component/Images/Icons/appbar.monitor.png" />
@@ -66,25 +66,51 @@
                 </StackPanel>
 
                 <!-- List of shaders -->
-                <ScrollViewer Grid.Row="2" Padding="5">
-                    <ListBox Name="SomeList" Margin="0,0,-12,0" ItemsSource="{Binding Shaders}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
-                        <ListBox.ItemsPanel>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="20" />
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="0" Padding="5">
+                        <ListBox Name="SomeList" Margin="0,0,-12,0" ItemsSource="{Binding Shaders}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel x:Name="wrapPanel" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="LightGray" BorderThickness="1" Width="200" MinHeight="108">
+                                        <StackPanel Orientation="Vertical" Margin="5" >
+                                            <!--<glctrl:GLScreensaverControl IsPreview="True" Source="{Binding SourceCode}" Width="192" Height="108" />-->
+                                            <TextBlock Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                    <StatusBar Grid.Row="1">
+                        <StatusBar.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel x:Name="wrapPanel" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
                             </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="LightGray" BorderThickness="1" Width="200" MinHeight="108">
-                                    <StackPanel Orientation="Vertical" Margin="5" >
-                                        <!--<glctrl:GLScreensaverControl IsPreview="True" Source="{Binding SourceCode}" Width="192" Height="108" />-->
-                                        <TextBlock Text="{Binding Name}" />
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </ScrollViewer>
+                        </StatusBar.ItemsPanel>
+                        <StatusBarItem Grid.Column="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="nbShaders" Text="# of shaders: 0" />
+                            </StackPanel>
+                        </StatusBarItem>
+                        <StatusBarItem Grid.Column="1">
+                            <ProgressBar x:Name="progress" Maximum="100" Value="0" Height="10" Width="200" />
+                        </StatusBarItem>
+                    </StatusBar>
+                </Grid>
             </Grid>
         </Border>
     </Grid>
