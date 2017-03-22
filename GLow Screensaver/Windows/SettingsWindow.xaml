@@ -44,6 +44,12 @@
                 <Button Content="{StaticResource SettingsIcon}" Background="Transparent" BorderThickness="0" />
             </StackPanel>
         </Border>
+
+        <glctrl:GLScreensaverControl x:Name="thumbnail" IsPreview="True" Source="{Binding Thumbnail}"
+            Width="192" Height="108" />
+
+        <!--Visibility="{Binding Thumbnail, Converter={StaticResource nullToVisibilityConverter}}"-->
+
         <Border Background="White" Grid.Column="1" Margin="0,0,0,0.5">
             <Grid>
                 <Grid.RowDefinitions>
@@ -87,9 +93,6 @@
                             <DataTemplate>
                                 <Border BorderBrush="LightGray" BorderThickness="1" Width="200" MinHeight="108">
                                     <StackPanel Orientation="Vertical" Margin="5" >
-                                        <glctrl:GLScreensaverControl IsPreview="True" Source="{Binding SourceCode}"
-                                            Visibility="{Binding Thumbnail, Converter={StaticResource nullToVisibilityConverter}}"
-                                            Width="192" Height="108" />
                                         <TextBlock Text="{Binding Name}" />
                                     </StackPanel>
                                 </Border>

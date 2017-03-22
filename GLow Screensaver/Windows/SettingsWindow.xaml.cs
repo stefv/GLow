@@ -22,10 +22,7 @@ using GLow_Screensaver.ViewModel;
 using GLowCommon.Data;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace GLow_Screensaver
 {
@@ -41,6 +38,11 @@ namespace GLow_Screensaver
         }
 
         private BackgroundWorker _shadersBackgroundWorker = new BackgroundWorker();
+
+        /// <summary>
+        /// Background worker to create the thumbnails.
+        /// </summary>
+        private BackgroundWorker _thumbnailBackgrounWorker = new BackgroundWorker();
 
         #region Constructors
         /// <summary>

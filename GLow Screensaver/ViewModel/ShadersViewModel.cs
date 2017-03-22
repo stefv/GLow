@@ -14,5 +14,14 @@ namespace GLow_Screensaver.ViewModel
         {
             get { return _shaders; }
         }
+
+        private ShaderViewModel _thumbnail;
+
+        public ShaderViewModel Thumbnail
+        {
+            get { return _thumbnail; }
+            set { _thumbnail = value; }
+        }
+
     }
 }
