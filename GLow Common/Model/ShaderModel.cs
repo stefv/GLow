@@ -120,6 +120,24 @@ namespace GLowCommon.Data
         /// </summary>
         public bool ReadOnly { get; set; }
 
+        /// <summary>
+        /// Thumbnail.
+        /// </summary>
+        public byte[] Thumbnail
+        {
+            get { return _thumbnail; }
+            set
+            {
+                if (_thumbnail != value)
+                {
+                    _thumbnail = value;
+                    RaisePropertyChanged("Thumbnail");
+                }
+            }
+        }
+
+        private byte[] _thumbnail = null;
+
         private List<ImageSourceModel> _imageSources = new List<ImageSourceModel>();
 
         public List<ImageSourceModel> ImageSources { get { return _imageSources; } }
@@ -143,6 +161,7 @@ namespace GLowCommon.Data
             Author = src.Author;
             LastUpdate = src.LastUpdate;
             ReadOnly = src.ReadOnly;
+            Thumbnail = null;
         }
 
         /// <summary>

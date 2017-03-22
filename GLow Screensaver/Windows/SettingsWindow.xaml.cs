@@ -22,7 +22,10 @@ using GLow_Screensaver.ViewModel;
 using GLowCommon.Data;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace GLow_Screensaver
 {
@@ -104,7 +107,11 @@ namespace GLow_Screensaver
             if (!shaderViewModel.SourceCode.Contains("iChannel") && !shaderViewModel.SourceCode.Contains("iSampleRate"))
             {
                 ViewModel.Shaders.Add(shaderViewModel);
-                if (ViewModel.Shaders.Count == 1) preview.Source = ViewModel.Shaders[0].SourceCode;
+                if (ViewModel.Shaders.Count == 1)
+                {
+                    preview.Source = ViewModel.Shaders[0].SourceCode;
+                    shaderList.SelectedIndex = 0;
+                }
                 nbShaders.Text = "# of shaders: " + ViewModel.Shaders.Count;
             }
         }
@@ -128,6 +135,11 @@ namespace GLow_Screensaver
             Rect bounds = element.TransformToAncestor(container).TransformBounds(new Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
             Rect rect = new Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
             return rect.Contains(bounds.TopLeft) || rect.Contains(bounds.BottomRight);
+        }
+
+        private void scroller_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
+        {
+            
         }
     }
 }

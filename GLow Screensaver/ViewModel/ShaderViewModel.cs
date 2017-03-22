@@ -106,6 +106,24 @@ namespace GLow_Screensaver.ViewModel
         private string _description;
 
         /// <summary>
+        /// Thumbnail.
+        /// </summary>
+        public byte[] Thumbnail
+        {
+            get { return _thumbnail; }
+            set
+            {
+                if (_thumbnail != value)
+                {
+                    _thumbnail = value;
+                    RaisePropertyChanged("Thumbnail");
+                }
+            }
+        }
+
+        private byte[] _thumbnail;
+
+        /// <summary>
         /// Author.
         /// </summary>
         public string Author { get; set; }
@@ -154,6 +172,7 @@ namespace GLow_Screensaver.ViewModel
             Author = src.Author;
             LastUpdate = src.LastUpdate;
             ReadOnly = src.ReadOnly;
+            Thumbnail = src.Thumbnail;
             if (src.ImageSources.Count>0) SourceCode = src.ImageSources[0].SourceCode;
         }
 
