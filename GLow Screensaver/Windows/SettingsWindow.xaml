@@ -41,6 +41,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Menu -->
+        <Border Grid.Column="0" Margin="0,0,0,0.5" Background="#FF353C55">
             <StackPanel Orientation="Vertical">
                 <Button Content="{StaticResource MonitorIcon}" Background="Transparent" BorderThickness="0" />
                 <Button Content="{StaticResource SettingsIcon}" Background="Transparent" BorderThickness="0" />
