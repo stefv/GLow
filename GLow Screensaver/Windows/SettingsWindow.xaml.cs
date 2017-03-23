@@ -37,12 +37,15 @@ namespace GLow_Screensaver
             set;
         }
 
+        /// <summary>
+        /// Background worker to access to the common database.
+        /// </summary>
         private BackgroundWorker _shadersBackgroundWorker = new BackgroundWorker();
 
         /// <summary>
         /// Background worker to create the thumbnails.
         /// </summary>
-        private BackgroundWorker _thumbnailBackgrounWorker = new BackgroundWorker();
+        private BackgroundWorker _thumbnailBackgroundWorker = new BackgroundWorker();
 
         #region Constructors
         /// <summary>
@@ -113,6 +116,7 @@ namespace GLow_Screensaver
                 {
                     preview.Source = ViewModel.Shaders[0].SourceCode;
                     shaderList.SelectedIndex = 0;
+                    if (shaderViewModel.Thumbnail == null) ViewModel.Thumbnail = shaderViewModel;
                 }
                 nbShaders.Text = "# of shaders: " + ViewModel.Shaders.Count;
             }

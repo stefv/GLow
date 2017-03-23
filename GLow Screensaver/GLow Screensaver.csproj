@@ -313,6 +313,7 @@
     <Content Include="Images\glow.ico" />
     <Resource Include="Images\Icons\appbar.monitor.png" />
     <Resource Include="Images\Icons\appbar.settings.png" />
+    <Resource Include="Images\thumbnail.png" />
     <Content Include="Lib\x64\sqlite3.dll" />
     <Content Include="Lib\x86\sqlite3.dll" />
   </ItemGroup>

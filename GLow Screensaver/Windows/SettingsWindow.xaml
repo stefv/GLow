@@ -29,8 +29,9 @@
     <Window.Resources>
         <Image x:Key="MonitorIcon" Source="/GLow Screensaver;component/Images/Icons/appbar.monitor.png" />
         <Image x:Key="SettingsIcon" Source="/GLow Screensaver;component/Images/Icons/appbar.settings.png" />
-
         <conv:NullToVisibilityConverter x:Key="nullToVisibilityConverter" />
+
+        <BitmapImage x:Key="ThumbnailPicture" UriSource="/GLow Screensaver;component/Images/thumbnail.png" />
     </Window.Resources>
 
     <Grid x:Name="grid" Background="{x:Null}">
@@ -38,15 +39,16 @@
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="41*"/>
         </Grid.ColumnDefinitions>
-        <Border Background="#FF353C55" Grid.Column="0" Margin="0,0,0,0.5">
+
+        <!-- Menu -->
             <StackPanel Orientation="Vertical">
                 <Button Content="{StaticResource MonitorIcon}" Background="Transparent" BorderThickness="0" />
                 <Button Content="{StaticResource SettingsIcon}" Background="Transparent" BorderThickness="0" />
             </StackPanel>
         </Border>
 
-        <glctrl:GLScreensaverControl x:Name="thumbnail" IsPreview="True" Source="{Binding Thumbnail}"
-            Width="192" Height="108" />
+        <!--<glctrl:GLScreensaverControl x:Name="thumbnail" IsPreview="True" Source="{Binding Thumbnail}"
+            Width="192" Height="108" />-->
 
         <!--Visibility="{Binding Thumbnail, Converter={StaticResource nullToVisibilityConverter}}"-->
 
@@ -94,6 +96,9 @@
                                 <Border BorderBrush="LightGray" BorderThickness="1" Width="200" MinHeight="108">
                                     <StackPanel Orientation="Vertical" Margin="5" >
                                         <TextBlock Text="{Binding Name}" />
+                                        <Border  Width="192" Height="108" Background="Black">
+                                            <Image Source="{StaticResource ThumbnailPicture}" />
+                                        </Border>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -120,7 +125,9 @@
                         </StatusBarItem>
                     </StatusBar>
                 </Grid>
+
             </Grid>
         </Border>
+
     </Grid>
 </Window>
