@@ -212,7 +212,7 @@
     <Compile Include="Utils\User32.cs" />
     <Compile Include="Utils\WindowStyles.cs" />
     <Compile Include="ViewModel\ShaderViewModel.cs" />
-    <Compile Include="ViewModel\ShadersViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="Windows\Converters\DescriptionConverter.cs" />
     <Compile Include="Windows\Converters\NewShaderConverter.cs" />
     <Compile Include="Windows\Converters\FavoriteConverter.cs" />

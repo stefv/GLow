@@ -40,6 +40,8 @@
             <ColumnDefinition Width="41*"/>
         </Grid.ColumnDefinitions>
 
+        <glctrl:GLScreensaverControl x:Name="thumbnail" IsPreview="True" Source="{Binding ThumbnailSource}" Width="192" Height="108" />
+
         <!-- Menu -->
         <Border Grid.Column="0" Margin="0,0,0,0.5" Background="#FF353C55">
             <StackPanel Orientation="Vertical">
@@ -47,9 +49,6 @@
                 <Button Content="{StaticResource SettingsIcon}" Background="Transparent" BorderThickness="0" />
             </StackPanel>
         </Border>
-
-        <!--<glctrl:GLScreensaverControl x:Name="thumbnail" IsPreview="True" Source="{Binding Thumbnail}"
-            Width="192" Height="108" />-->
 
         <!--Visibility="{Binding Thumbnail, Converter={StaticResource nullToVisibilityConverter}}"-->
 
@@ -63,7 +62,7 @@
 
                 <!-- Preview box -->
                 <Border Grid.Row="0" Background="#FFEFEFEF">
-                    <glctrl:GLScreensaverControl x:Name="preview" IsPreview="True" Source="{Binding SourceCode}"  />
+                    <glctrl:GLScreensaverControl x:Name="preview" IsPreview="True" Source="{Binding PreviewSource}"  />
                 </Border>
 
                 <!-- Filter controls -->

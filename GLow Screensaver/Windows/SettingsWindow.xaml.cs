@@ -21,6 +21,7 @@ using GLow_Screensaver.Services;
 using GLow_Screensaver.ViewModel;
 using GLowCommon.Data;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 
@@ -31,11 +32,47 @@ namespace GLow_Screensaver
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public SettingsViewModel ViewModel
+        private ObservableCollection<ShaderViewModel> _shaders = new ObservableCollection<ShaderViewModel>();
+
+        public ObservableCollection<ShaderViewModel> Shaders
         {
-            get;
-            set;
+            get { return _shaders; }
         }
+
+        private ShaderViewModel _thumbnailShader;
+
+        public ShaderViewModel ThumbnailShader
+        {
+            get { return _thumbnailShader; }
+            set { _thumbnailShader = value; }
+        }
+
+
+
+        public string PreviewSource
+        {
+            get { return (string)GetValue(PreviewSourceProperty); }
+            set { SetValue(PreviewSourceProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PreviewSource.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PreviewSourceProperty =
+            DependencyProperty.Register("PreviewSource", typeof(string), typeof(SettingsWindow), new PropertyMetadata(null));
+
+
+
+        public string ThumbnailSource
+        {
+            get { return (string)GetValue(ThumbnailSourceProperty); }
+            set { SetValue(ThumbnailSourceProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ThumbnailSource.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ThumbnailSourceProperty =
+            DependencyProperty.Register("ThumbnailSource", typeof(string), typeof(SettingsWindow), new PropertyMetadata(null));
+
+
+
 
         /// <summary>
         /// Background worker to access to the common database.
@@ -54,6 +91,7 @@ namespace GLow_Screensaver
         public SettingsWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
         #endregion
         #region Method to initialize the window
@@ -64,8 +102,6 @@ namespace GLow_Screensaver
         /// <param name="e">Argument for this event.</param>
         private void SettingsWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel = new SettingsViewModel();
-            DataContext = ViewModel;
 
             // Get the list of shaders
             List<string> shadersUID = ShaderService.GetShadersUID();
@@ -111,14 +147,14 @@ namespace GLow_Screensaver
             ShaderViewModel shaderViewModel = new ShaderViewModel(shaderModel);
             if (!shaderViewModel.SourceCode.Contains("iChannel") && !shaderViewModel.SourceCode.Contains("iSampleRate"))
             {
-                ViewModel.Shaders.Add(shaderViewModel);
-                if (ViewModel.Shaders.Count == 1)
+                Shaders.Add(shaderViewModel);
+                if (Shaders.Count == 1)
                 {
-                    preview.Source = ViewModel.Shaders[0].SourceCode;
+                    PreviewSource = Shaders[0].SourceCode;
                     shaderList.SelectedIndex = 0;
-                    if (shaderViewModel.Thumbnail == null) ViewModel.Thumbnail = shaderViewModel;
+                    if (shaderViewModel.Thumbnail == null) ThumbnailSource = shaderViewModel.SourceCode;
                 }
-                nbShaders.Text = "# of shaders: " + ViewModel.Shaders.Count;
+                nbShaders.Text = "# of shaders: " + Shaders.Count;
             }
         }
 
@@ -145,7 +181,7 @@ namespace GLow_Screensaver
 
         private void scroller_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
         {
-            
+
         }
     }
 }

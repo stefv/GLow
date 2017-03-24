@@ -305,7 +305,7 @@ namespace GLow_Screensaver.Controls
                 glControl.SwapBuffers();
 
                 // set up bitmap we will save to
-                if (Width > 0 && Height > 0)
+                /*if (Width > 0 && Height > 0 && Source!=null && Source!="")
                 {
                     Bitmap bitmap = new Bitmap((int)Width, (int)Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                     BitmapData bData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
@@ -313,7 +313,7 @@ namespace GLow_Screensaver.Controls
                     bitmap.UnlockBits(bData);
                     bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
                     bitmap.Save(@"c:\temp\test.png");
-                }
+                }*/
 
                 // Update the FPS
                 if ((DateTime.Now - _timeFPS).TotalSeconds >= 1)
