@@ -18,12 +18,15 @@
 //
 
 using GLow_Screensaver.Services;
+using GLow_Screensaver.Utils;
 using GLow_Screensaver.ViewModel;
 using GLowCommon.Data;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Interop;
 
 namespace GLow_Screensaver
 {
@@ -106,6 +109,9 @@ namespace GLow_Screensaver
             // Get the list of shaders
             List<string> shadersUID = ShaderService.GetShadersUID();
 
+            // Set the progression in the taskbar
+            TaskbarProgress.SetValue(new WindowInteropHelper(Application.Current.MainWindow).Handle, 0, 100);
+
             // Update the list asynchronously
             _shadersBackgroundWorker.DoWork += _shadersBackgroundWorker_DoWork;
             _shadersBackgroundWorker.ProgressChanged += _shadersBackgroundWorker_ProgressChanged;
@@ -140,6 +146,9 @@ namespace GLow_Screensaver
         {
             progress.Value = e.ProgressPercentage;
 
+            // Set the progression in the taskbar
+            TaskbarProgress.SetValue(new WindowInteropHelper(Application.Current.MainWindow).Handle, progress.Value, 100);
+
             // TODO Support the iChannel
             // TODO Support the iSampleRate
             // Add the shade only if it doesn't contain iChannel of iSampleRate. These features are not supported yet.
@@ -166,6 +175,9 @@ namespace GLow_Screensaver
         private void _shadersBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             progress.Value = 100;
+
+            // Finalize the progression in the taskbar
+            TaskbarProgress.SetState(new WindowInteropHelper(Application.Current.MainWindow).Handle, TaskbarProgress.TaskbarStates.NoProgress);
         }
         #endregion
 
